@@ -23,13 +23,13 @@ function createMushroomElement({
     children[1].textContent = svenskt_namn
     children[2].textContent = latinskt_namn
     children[3].textContent = ätlig
-    const lower = ätlig.toLowerCase()
-    if (lower.includes("blandad")) {
+    const ätbarStatus = ätlig.toLowerCase().split(" – ")[0]
+    if (ätbarStatus.includes("blandad")) {
         children[3].classList.add("yellow")
-    } else if (lower.includes("giftig")) {
-        children[3].classList.add("red")
-    } else if (lower.includes("ätlig")) {
+    } else if (ätbarStatus.includes("ätlig")) {
         children[3].classList.add("green")
+    }  else if (ätbarStatus.includes("giftig")) {
+        children[3].classList.add("red")
     }
     children[4].textContent = beskrivning
 
