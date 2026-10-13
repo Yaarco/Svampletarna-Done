@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/css/mina-fynd.css">
     <script src="script.js" defer></script>
+    <script src="mina-fynd.js" defer></script>
 </head>
 <body>
     <header>
@@ -18,15 +19,16 @@
             <a href="mina-fynd.html">Mina fynd</a>
             <a href="om-svampar.html">Om svampar</a>
         </nav>
-        <div>
+
+        <div class="hero">
             <h1>Mina fynd</h1>
             <p>Här kan du se alla svampar du har markerat som hittade.</p>
         </div>
     </header>
     <main>
         <div>
-            <p>Du har hittat <span>x</span> svampar</p>
-            <button type="button">Rensa alla fynd</button>
+            <p>Du har hittat <span id="amount-found">0</span> svamp<span id="text-amount-found"></span></p>
+            <button type="button" id="clear-history-btn">Rensa alla fynd</button>
         </div>
         <section class="svamp-lista">
             <ul>
@@ -39,7 +41,7 @@
                         <p>Ätlig</p>
                         <p>Beskrivning</p>
                         <p>Fyndplats</p>
-                        <button type="button">Ta bort</button>
+                        <button type="button" class="remove-mushroom-btn">Ta bort</button>
                     </article>
                 </li>
             </ul>
