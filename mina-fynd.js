@@ -17,7 +17,7 @@ async function init(){
         createMushroomElement(mushroom);
     });
 
-    const removeMushroomBtn = document.querySelectorAll('.remove-mushroom-btn')
+    const removeMushroomBtn = document.querySelectorAll('.remove-mushroom-btn');
 
     removeMushroomBtn.forEach(button => {
         button.addEventListener("click", e => {

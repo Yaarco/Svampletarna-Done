@@ -1,0 +1,62 @@
+header > div {
+    background-image: linear-gradient(90deg, rgb(0 0 0 / 0.6), transparent), url("../img/mina-fynd-bakgrund.jpg");
+}
+
+/* Rutan med antal fynd och "Rensa alla fynd" */
+main > div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1em;
+    margin-bottom: 1em;
+    border-radius: 8px;
+    background-color: #e8eedf;
+    font-weight: bold;
+}
+
+main button {
+    color: #c0392b;
+    border-color: #e3a29a;
+}
+
+section > ul {
+    grid-template-columns: 1fr; /* En svamp per rad */
+}
+
+/* Bild till vänster, text i mitten, knapp till höger */
+article {
+    display: grid;
+    grid-template-columns: 100px 1fr auto;
+    align-items: center;
+    column-gap: 1em;
+    row-gap: 0.2em;
+    padding: 0.8em;
+}
+
+article > :not(img) {
+    margin-inline: 0;
+    grid-column: 2;
+}
+
+article > img {
+    grid-row: 1 / 5;
+    aspect-ratio: 1;
+    border-radius: 6px;
+}
+
+article > button {
+    grid-column: 3;
+    grid-row: 1 / 5;
+}
+
+@media only screen and (max-width: 560px) {
+    article {
+        grid-template-columns: 80px 1fr;
+    }
+
+    article > button {
+        grid-column: 2;
+        grid-row: auto;
+        justify-self: start;
+    }
+}
