@@ -49,6 +49,15 @@ function skapaArtikel(jamforelse, svampar) {
     const risk = document.createElement("p");
     risk.className = "risk";
     risk.textContent = "Risk: " + jamforelse.risk;
+    
+    // Väljer färg på riskrutan utifrån risktexten
+    if (jamforelse.risk.includes("Låg")) {
+        risk.classList.add("risk-lag");
+    } else if (jamforelse.risk.includes("Oätlig")) {
+        risk.classList.add("risk-oatlig");
+    } else {
+        risk.classList.add("risk-giftig");
+    }
 
     // Använder funktionerna för att skapa bilderna och punktlistan
     const bildcontainer = skapaBilder(jamforelse, svampar);
