@@ -30,7 +30,15 @@ main > p{
     grid-column: 1 / 3;
 }
 
+.jamforelse-innehall{
+    grid-column: 1 / 4;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 50px;
+}
+
 .jamforelse-bilder{
+    grid-column: 1 / 2;
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 10px;
@@ -41,13 +49,6 @@ main > p{
 .jamforelse-bilder figure{
     width: 100%;
     margin: 0;
-}
-
-.jamforelse-innehall{
-    grid-column: 1 / 4;
-    display: flex;
-    flex-direction: row;
-    gap: 50px;
 }
 
 .risk.risk-giftig,
