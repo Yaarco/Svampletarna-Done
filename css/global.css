@@ -144,7 +144,7 @@ article>img {
     color: #200404;
 }
 
-@media only screen and (max-width: 560px) {
+@media (min-width: 768px) {
     nav {
         flex-wrap: wrap;
         justify-content: center;
@@ -155,4 +155,19 @@ article>img {
         flex-basis: 100%;
         /* loggan tar hela övre raden, övriga länkar hamnar under */
     }
+
+    nav {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        align-items: center;
+        justify-content: flex-start;
+    }
+
+    nav > a:nth-child(1) {
+        flex-basis: auto;
+        margin-right: auto;
+        text-align: left;
+    }
+    
 }
