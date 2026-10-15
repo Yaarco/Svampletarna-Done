@@ -1,14 +1,16 @@
 <!doctype html>
 <html lang="sv">
+
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Mina fynd</title>
-    <link rel="stylesheet" href="/css/global.css">
-    <link rel="stylesheet" href="/css/mina-fynd.css">
+    <link rel="stylesheet" href="/css/global.css" />
+    <link rel="stylesheet" href="/css/mina-fynd.css" />
     <script src="script.js" defer></script>
     <script src="mina-fynd.js" defer></script>
 </head>
+
 <body>
     <header>
         <nav>
@@ -27,7 +29,9 @@
     </header>
     <main>
         <div>
-            <p>Du har hittat <span id="amount-found">0</span> svamp<span id="text-amount-found"></span></p>
+            <p>
+                Du har hittat <span id="amount-found">0</span> svamp<span id="text-amount-found"></span>
+            </p>
             <button type="button" id="clear-history-btn">Rensa alla fynd</button>
         </div>
         <section class="svamp-lista">
@@ -35,12 +39,15 @@
                 <li id="placeholder">
                     <article>
                         <!-- placeholder svamp-->
-                        <img/>
+                        <img />
                         <h3>Exempelnamn svenska</h3>
                         <p>Exempelnamn latin</p>
-                        <p>Ätlig</p>
+                        <details>
+                            <summary>Ätlig</summary>
+                            <p>Ätbarhet</p>
+                        </details>
                         <p>Beskrivning</p>
-                        <p>Fyndplats</p>
+                        <p class="location">Fyndplats</p>
                         <button type="button" class="remove-mushroom-btn">Ta bort</button>
                     </article>
                 </li>
@@ -51,4 +58,5 @@
         <p>Grupp 5 2026</p>
     </footer>
 </body>
+
 </html>

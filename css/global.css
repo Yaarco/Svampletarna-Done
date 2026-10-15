@@ -10,10 +10,13 @@ body {
     height: 100vh;
     background-color: #f6f3ea;
     color: #2b2b2b;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 main {
-    flex-grow: 1;/* Gör så att huvudinnehållet fyller ut allt ledigt utrymme mellan header och footer */
+    flex-grow: 1;
+    /* Gör så att huvudinnehållet fyller ut allt ledigt utrymme mellan header och footer */
     padding: 2em;
 }
 
@@ -90,11 +93,12 @@ section>ul>li {
 article {
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: flex-start;
     height: 100%;
     gap: 0.3em;
     padding-bottom: 0.8em;
 }
+
 
 article> :not(img) {
     margin-inline: 0.8em;
@@ -105,6 +109,9 @@ article>p:nth-of-type(1) {
     color: #666;
 }
 
+article>p:nth-child(6) {
+    margin-top: auto;
+}
 
 article>img {
     width: 100%;
@@ -116,6 +123,24 @@ article>img {
     display: block;
 }
 
+/* Platsikon framför fyndplatsen */
+.location {
+    display: flex;
+    align-items: center;
+    gap: 0.3em;
+}
+
+.location::before {
+    content: "";
+    flex-shrink: 0;
+    width: 1em;
+    height: 1em;
+    background-color: currentColor;
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7zm0 9.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5z'/%3E%3C/svg%3E") no-repeat center / contain;
+}
+
+/*Istället för att skapa en svg för varje element, gör detta ett pseudoelement och visar location ikonen i den.*/
+
 .green,
 .yellow,
 .red {
@@ -124,6 +149,35 @@ article>img {
     font-size: 0.8em;
     padding: 0.2em 0.6em;
     border-radius: 5px;
+}
+
+/* Ätbarhet: statusen syns, "?" öppnar hela texten */
+summary {
+    display: flex;
+    align-items: center;
+    gap: 0.4em;
+    list-style: none;
+    cursor: pointer;
+}
+
+summary::after {
+    content: "?";
+    display: grid;
+    place-items: center;
+    width: 1.2em;
+    height: 1.2em;
+    border: 1.5px solid currentColor;
+    border-radius: 50%;
+    font-size: 0.85em;
+}
+
+details[open] summary::after {
+    content: "×";
+}
+
+details>p {
+    margin: 0.3em 0 0;
+    font-weight: normal;
 }
 
 .green {
