@@ -1,3 +1,8 @@
+// Startar hämtningen av information
+function init() {
+    hamtaData();
+}
+
 // Hämtar informationen från JSON-filerna
 async function hamtaData() {
     try {
@@ -117,5 +122,5 @@ function skapaPunktlista(egenskaper) {
 
     return punktlista;
 }
-// Hämtar informationen och visar jämförelserna när sidan öppnas
-hamtaData();
+// Startar sidan när den har laddats
+window.onload = init;
