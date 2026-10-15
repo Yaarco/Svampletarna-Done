@@ -1,5 +1,5 @@
 header>div {
-    background-image: linear-gradient(90deg, rgb(0 0 0 / 0.6), transparent), url("../img/mina-fynd-bakgrund.jpg");
+    background-image: linear-gradient(90deg, rgb(0 0 0 / 0.6) 100%, transparent), url("../img/mina-fynd-bakgrund.jpg");
 }
 
 /* Rutan med antal fynd och "Rensa alla fynd" */
@@ -10,13 +10,14 @@ main>div {
     padding: 1em;
     margin-bottom: 1em;
     border-radius: 8px;
-    background-color: #e8eedf;
+    background-color: #c9daae;
     font-weight: bold;
 }
 
 main button {
-    color: #c0392b;
-    border-color: #e3a29a;
+    color: #fff;
+    border: none;
+    background-color: #a52222;
 }
 
 section>ul {
@@ -50,9 +51,17 @@ article>button {
     grid-row: 1 / 5;
 }
 
-@media only screen and (max-width: 560px) {
+@media (max-width: 600px) {
     article {
-        grid-template-columns: 80px 1fr;
+        display: flex;
+        align-items: flex-start;
+    }
+    article > button {
+        width: 100%;
+    }
+    article > img {
+        width: 100%;
+        display: block;
     }
 
     article>button {

@@ -51,17 +51,25 @@ function skapaArtikel(jamforelse, svampar) {
     const rubrik = document.createElement("h3");
     rubrik.textContent = jamforelse.par;
 
-    const risk = document.createElement("p");
+    const risk = document.createElement("details");
+    const kortText = document.createElement("summary")
+    const langText = document.createElement("p")
     risk.className = "risk";
-    risk.textContent = "Risk: " + jamforelse.risk;
+    const riskFaktor = jamforelse.risk.split(" – ")[0]
+    kortText.textContent = "Risk: "+riskFaktor
+    const riskBeskrivning = jamforelse.risk
+    langText.textContent=riskBeskrivning
+    risk.appendChild(kortText)
+    risk.appendChild(langText)
+
     
     // Väljer färg på riskrutan utifrån risktexten
     if (jamforelse.risk.includes("Låg")) {
-        risk.classList.add("risk-lag");
+        risk.classList.add("green");
     } else if (jamforelse.risk.includes("Oätlig")) {
-        risk.classList.add("risk-oatlig");
+        risk.classList.add("yellow");
     } else {
-        risk.classList.add("risk-giftig");
+        risk.classList.add("red");
     }
 
     // Använder funktionerna för att skapa bilderna och punktlistan
