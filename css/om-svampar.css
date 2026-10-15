@@ -1,13 +1,5 @@
-.hero{
-    background-image: url("/img/om-svampar-bakgrund.jpg");
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-}
-
-main{
-    max-width: 1080px;
-    margin: 0 auto;
+header>div {
+    background-image: linear-gradient(90deg, rgb(0 0 0 / 0.6), transparent), url("../img/mina-fynd-bakgrund.jpg");
 }
 
 main > p{
@@ -95,6 +87,7 @@ main > p{
     
     .jamforelse-innehall{
         gap: 5px;
+        display: flex;
         flex-direction: column;
     }
 }
