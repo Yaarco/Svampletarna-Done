@@ -1,5 +1,5 @@
-header>div {
-    background-image: linear-gradient(90deg, rgb(0 0 0 / 0.6) 100%, transparent), url("../img/mina-fynd-bakgrund.jpg");
+.hero {
+    --hero-bild: url("../img/mina-fynd-bakgrund.jpg");
 }
 
 /* Rutan med antal fynd och "Rensa alla fynd" */
@@ -18,11 +18,6 @@ main button {
     color: #fff;
     border: none;
     background-color: #a52222;
-}
-
-section>ul {
-    grid-template-columns: 1fr;
-    /* En svamp per rad */
 }
 
 /* Bild till vänster, text i mitten, knapp till höger */
@@ -56,17 +51,12 @@ article>button {
         display: flex;
         align-items: flex-start;
     }
-    article > button {
-        width: 100%;
-    }
-    article > img {
-        width: 100%;
-        display: block;
-    }
 
     article>button {
-        grid-column: 2;
-        grid-row: auto;
-        justify-self: start;
+        width: 100%;
+    }
+
+    article>img {
+        width: 100%;
     }
 }

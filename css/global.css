@@ -1,11 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Concert+One&display=swap');
 
 h1 {
-      font-family: "Concert One", sans-serif;
-}
-
-.hero p {
-    text-shadow: 1px 1px 4px #000;
+    font-family: "Concert One", sans-serif;
 }
 
 * {
@@ -31,15 +27,13 @@ html {
 }
 
 nav {
-    padding: 0 1em;
-    column-gap: 1em;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    column-gap: 2em;
+    padding: 0 2em;
     background-color: #faf8f0;
-}
-
-nav > a[aria-current="page"] {
-    color: #2f5d34;
-    font-weight: bold;
-    border-bottom-color: #2f5d34;
 }
 
 main {
@@ -62,15 +56,6 @@ footer {
     padding: 1em;
 }
 
-nav {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    column-gap: 2em;
-    padding: 0 2em;
-}
-
 nav>a {
     color: inherit;
     text-decoration: none;
@@ -78,8 +63,10 @@ nav>a {
     padding-block: 1em;
 }
 
-nav>a[aria-current] {
-    border-bottom: 2px solid green;
+nav>a[aria-current="page"] {
+    color: #2f5d34;
+    font-weight: bold;
+    border-bottom: 2px solid #2f5d34;
 }
 
 nav>a>img {
@@ -91,27 +78,17 @@ nav>a:nth-child(1) {
     /* Skjuter all efterföljande nav-innehåll åt höger genom att ta upp all ledig marginal */
 }
 
-header>div {
-    padding: 6em 2em;
-    width: 100%;
-    color: #fff;
-    background: #2f5d34 center / cover;
-}
-
-header>div>h1 {
-    font-size: 3em;
-}
 
 section>ul {
     display: grid;
-    /* Skapar ett responsivt rutnät: kolumnerna är minst 190px och delar på resterande utrymme (1fr) */
-    grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+    /* En svamp per rad som standard, index.css lägger till fler kolumner på större skärmar */
+    grid-template-columns: 1fr;
     gap: 10px;
     list-style: none;
 }
 
 section>ul>li {
-    background-color: #fff;
+    background-color: #faf8f0;
     border: 1px solid #e4dfd2;
     border-radius: 8px;
     overflow: hidden;
@@ -121,10 +98,9 @@ section>ul>li {
 article {
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
     height: 100%;
-    gap: 0.3em;
-    padding-bottom: 0.8em;
+    gap: 0.5em;
+    padding-bottom: 1em;
 }
 
 
@@ -214,29 +190,20 @@ details>p {
 
 .green {
     background-color: #d1edc5;
-    border-color: #d1edc5;
     color: #2f5d34;
 }
 
 .yellow {
     background-color: #f8edb5;
-    border-color: #f8edb5;
     color: #665414;
 }
 
 .red {
     background-color: #ffd3ce;
-    border-color: #ffd3ce;
     color: #a52222;
 }
 
-.svamp-lista article {
-    justify-content: flex-start;
-    gap: 0.5em;
-    padding-bottom: 1em;
-}
-
-.svamp-lista article > img {
+.svamp-lista article>img {
     margin-bottom: 0.3em;
 }
 
@@ -247,8 +214,13 @@ details>p {
 .svamp-lista p {
     line-height: 1.4;
 }
+
+/* Varje sida sätter sin egen bakgrundsbild med --hero-bild */
 .hero {
     padding: 3em 1.5em;
+    color: #ffffff;
+    background-image: linear-gradient(rgb(0 0 0 / 0.6), rgb(0 0 0 / 0.6)), var(--hero-bild);
+    background-position: center bottom;
 }
 
 .hero h1 {
@@ -271,6 +243,7 @@ details>p {
     .hero {
         padding: 4em 2em;
     }
+
     nav {
         flex-wrap: wrap;
         justify-content: center;
@@ -281,9 +254,6 @@ details>p {
         flex-basis: 100%;
         /* loggan tar hela övre raden, övriga länkar hamnar under */
     }
-    .hero h1 {
-        font-size: 2.5em;
-    }
 }
 
 /* Tre kolumner på större skärmar */
@@ -293,8 +263,6 @@ details>p {
     }
 
     nav {
-        padding: 0 2em;
-        column-gap: 2em;
         border-radius: 10px 10px 0 0;
     }
 

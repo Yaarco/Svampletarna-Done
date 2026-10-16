@@ -52,17 +52,17 @@ function skapaArtikel(jamforelse, svampar) {
     rubrik.textContent = jamforelse.par;
 
     const risk = document.createElement("details");
-    const kortText = document.createElement("summary")
-    const langText = document.createElement("p")
+    const kortText = document.createElement("summary");
+    const langText = document.createElement("p");
     risk.className = "risk";
-    const riskFaktor = jamforelse.risk.split(" – ")[0]
-    kortText.textContent = "Risk: "+riskFaktor
-    const riskBeskrivning = jamforelse.risk
-    langText.textContent=riskBeskrivning
-    risk.appendChild(kortText)
-    risk.appendChild(langText)
+    const riskFaktor = jamforelse.risk.split(" – ")[0];
+    kortText.textContent = "Risk: " + riskFaktor;
+    const riskBeskrivning = jamforelse.risk;
+    langText.textContent = riskBeskrivning;
+    risk.appendChild(kortText);
+    risk.appendChild(langText);
 
-    
+
     // Väljer färg på riskrutan utifrån risktexten
     if (jamforelse.risk.includes("Låg")) {
         risk.classList.add("green");
@@ -75,7 +75,7 @@ function skapaArtikel(jamforelse, svampar) {
     // Använder funktionerna för att skapa bilderna och punktlistan
     const bildcontainer = skapaBilder(jamforelse, svampar);
     const punktlista = skapaPunktlista(jamforelse.särskiljande);
-    
+
     // Samlar bilderna och punktlistan i en gemensam div
     const innehall = document.createElement("div");
     innehall.className = "jamforelse-innehall";
