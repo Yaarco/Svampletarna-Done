@@ -66,7 +66,6 @@ function createComparisonElement(comparison, mushrooms) {
     risk.appendChild(riskSummary);
     risk.appendChild(riskText);
 
-    
     // Väljer färg på riskrutan utifrån risktexten
     if (comparison.risk.includes("Låg")) {
         risk.classList.add("green");

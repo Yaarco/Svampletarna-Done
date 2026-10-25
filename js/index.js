@@ -12,7 +12,7 @@ async function init() {
         const mushroomElement = createMushroomElement(mushroom);
         const button = mushroomElement.querySelector(".btn-find");
 
-        if(savedMushrooms.includes(mushroom.svenskt_namn)){
+        if (savedMushrooms.includes(mushroom.svenskt_namn)) {
             button.hidden = true;
         }
     });
@@ -22,10 +22,10 @@ async function init() {
     btnFind.forEach(btnFind => {
         btnFind.addEventListener("click", e => {
             const mushroomId = e.currentTarget.dataset.svampId;
-            
+
             const savedMushrooms = JSON.parse(localStorage.getItem("mushrooms")) || [];
 
-            if(!savedMushrooms.includes(mushroomId)) {
+            if (!savedMushrooms.includes(mushroomId)) {
                 savedMushrooms.push(mushroomId);
             }
 

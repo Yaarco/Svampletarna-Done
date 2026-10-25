@@ -5,7 +5,6 @@ header>div {
 
 /* Visar svamparna i en kolumn med mellanrum mellan dem */
 .svamp-lista>ul {
-    grid-template-columns: 1fr;
     gap: 1.5em;
 }
 

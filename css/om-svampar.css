@@ -1,12 +1,12 @@
-header>div {
-    background-image: linear-gradient(90deg, rgb(0 0 0 / 0.6) 100%, transparent), url("../img/mina-fynd-bakgrund.jpg");
+.hero {
+    --hero-bild: url("../img/om-svampar-bakgrund.jpg");
 }
 
-main > p{
+main>p {
     color: grey;
 }
 
-.jamforelse{
+.jamforelse {
     margin-top: 16px;
     border-radius: 8px;
     padding: 16px;
@@ -18,18 +18,18 @@ main > p{
     grid-template-rows: auto auto;
 }
 
-.jamforelse h3{
+.jamforelse h3 {
     grid-column: 1 / 3;
 }
 
-.jamforelse-innehall{
+.jamforelse-innehall {
     grid-column: 1 / 4;
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 50px;
 }
 
-.jamforelse-bilder{
+.jamforelse-bilder {
     grid-column: 1 / 2;
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -38,12 +38,11 @@ main > p{
     font-weight: bold;
 }
 
-.jamforelse-bilder figure{
+.jamforelse-bilder figure {
     width: 100%;
-    margin: 0;
 }
 
-.risk{
+.risk {
     font-weight: bold;
     font-style: normal;
     border-radius: 8px;
@@ -52,7 +51,7 @@ main > p{
     text-align: center;
 }
 
-.jamforelse-bilder img{
+.jamforelse-bilder img {
     width: 100%;
     max-width: 250px;
     aspect-ratio: 4 / 3;
@@ -63,12 +62,11 @@ main > p{
 }
 
 @media (max-width: 600px) {
-    .jamforelse{
-        padding: 16px;
+    .jamforelse {
         display: flex;
     }
-    
-    .jamforelse-innehall{
+
+    .jamforelse-innehall {
         gap: 5px;
         display: flex;
         flex-direction: column;
