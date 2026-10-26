@@ -1,6 +1,6 @@
 const templateEl = document.getElementById("placeholder");
 
-const mushroomList = document.querySelector("ul");
+const mushroomList = document.querySelector(".placeholder-ul");
 mushroomList.removeChild(templateEl);
 
 function createMushroomElement({
