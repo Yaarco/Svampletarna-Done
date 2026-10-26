@@ -1,150 +1,119 @@
-/* Gemensamma stilar för alla sidor. Varje sida har dessutom en egen CSS-fil.
-   Mobile first: stilarna utanför media queries gäller mobil, @media (min-width: ...) lägger till för större skärmar. */
+/* Gemensamma stilar för alla sidor. Varje sida har dessutom en egen CSS-fil. */
 
+/* Hämtar typsnitten Concert One (rubriker) och Nunito (brödtext) från Google Fonts */
 @import url("https://fonts.googleapis.com/css2?family=Concert+One&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap");
 
-/* Färgpalett */
+/* Färgpalett. Alla färger på sajten hämtas härifrån. */
 :root {
-    --gron-mork: #294522;
-    --gron: #2f5d34;
-    --gron-ljus: #d1edc5;
-    --gul: #665414;
-    --gul-ljus: #f8edb5;
-    --rod: #a52222;
-    --rod-ljus: #ffd3ce;
-    --vit: #edf3ea;
-    --bakgrund: #f6f3ea;
-    --yta: #faf8f0;
-    --kant: #e4dfd2;
+    --gron: #2f5d34; /* knappar, rubriker, markerad meny, ätlig-text */
+    --gron-mork: #244728; /* hover och bakgrunden runt sidan */
+    --gron-ljus: #d1edc5; /* ätlig-etikett, rutan på mina fynd, fokusram */
+    --gul: #665414; /* oätlig-text */
+    --gul-ljus: #f8edb5; /* oätlig-etikett */
+    --rod: #a52222; /* ta bort-knappar, felmeddelanden, giftig-text */
+    --rod-ljus: #ffd3ce; /* giftig-etikett */
     --text: #2b2b2b;
-    --text-gra: #666;
-    --skugga: rgb(0 0 0 / 0.6);
+    --text-gra: #666; /* latinska namn, datum och annan mindre viktig text */
+    --bakgrund: #f6f3ea; /* sidans bakgrund */
+    --yta: #fff; /* kort, meny, knappar, fält och text på mörk bakgrund */
+    --kant: #e4dfd2;
+    --skugga: rgb(0 0 0 / 0.6); /* skuggan runt sidan och den mörka toningen i heron */
 }
 
-/* Nollställer webbläsarens standardmarginaler */
+/* Rubrikerna använder typsnittet Concert One */
+h1 {
+    font-family: "Concert One", sans-serif;
+}
+
+/* Nollställer webbläsarens standardmarginaler och gör att padding och kant räknas in i bredden */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-/* Element med attributet hidden ska alltid döljas, även om en annan regel sätter display (används av JS) */
-[hidden] {
-    display: none !important;
+/* Sidan är högst 1200px bred och centrerad, flex i kolumn gör att footern hamnar längst ner */
+body {
+    display: flex;
+    border-radius: 10px;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: var(--bakgrund);
+    color: var(--text);
+    font-family: "Nunito", sans-serif;
+    max-width: 1200px;
+    box-shadow: 0px 0px 8px 1px var(--skugga);
+    margin: 0 auto;
 }
 
-/* Grön bakgrund runt sidan, som ligger centrerad som ett "kort" med skugga */
+/* Mörkgrön bakgrund som syns runt sidan på breda skärmar */
 html {
     background-color: var(--gron-mork);
 }
 
-body {
+/* Navigeringen lägger logga och länkar på en rad */
+nav {
+    width: 100%;
     display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    max-width: 1200px;
-    margin: 0 auto;
-    border-radius: 10px;
-    box-shadow: 0 0 8px 1px var(--skugga);
-    background-color: var(--bakgrund);
-    color: var(--text);
-    font-family: "Nunito", sans-serif;
+    flex-direction: row;
+    align-items: center;
+    column-gap: 2em;
+    padding: 0 2em;
+    background-color: var(--yta);
 }
 
-h1 {
-    font-family: "Concert One", sans-serif;
-}
-
+/* Huvudinnehållet */
 main {
-    /* Gör så att huvudinnehållet fyller ut allt ledigt utrymme mellan header och footer */
     flex-grow: 1;
-    padding: 3em 2em;
+    /* Gör så att huvudinnehållet fyller ut allt ledigt utrymme mellan header och footer */
+    padding: 2em 1em;
 }
 
-/* Grundstil för knappar, sidornas egna CSS-filer ändrar färgerna */
+/* Grundutseende för alla knappar. font-family: inherit eftersom knappar annars får webbläsarens standardtypsnitt. */
 button {
+    font-family: inherit;
     font-size: 0.85em;
     padding: 0.4em 0.8em;
     border: 1px solid var(--kant);
     border-radius: 6px;
-    background-color: var(--vit);
+    background-color: var(--yta);
     cursor: pointer;
 }
 
+/* Centrerad text i sidfoten */
 footer {
     text-align: center;
     padding: 1em;
 }
 
-/* ---------- Meny ---------- */
-
-/* Mobil: loggan överst och menyvalen under varandra med en linje emellan */
-nav {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 0.5em 1em;
-    background-color: var(--yta);
-}
-
-/* Loggan är en länk till startsidan */
-nav > a img {
-    display: block;
-    max-height: 80px;
-}
-
-/* Listan tar hela bredden, så varje menyval blir en rad över hela skärmen */
-nav ul {
-    display: flex;
-    flex-direction: column;
-    align-self: stretch;
-    list-style: none;
-}
-
-nav li + li {
-    border-top: 1px solid var(--text-gra);
-}
-
-/* Flex i stället för text-align, så att även inloggningslänken med ikon centreras */
-nav ul a {
-    display: flex;
-    justify-content: center;
+/* Navigeringslänkarna får samma färg som texten och ingen understrykning */
+nav > a {
     color: inherit;
     text-decoration: none;
-    font-size: 1.1em;
-    padding-block: 0.5em;
+    font-size: 0.9em;
+    padding-block: 1em;
 }
 
-/* Markerar sidan man är på (aria-current sätts i HTML:en) */
-nav a[aria-current] {
+/* Markerar länken till sidan man är på med grön fet text och en linje under */
+nav > a[aria-current="page"] {
     color: var(--gron);
     font-weight: bold;
     border-bottom: 2px solid var(--gron);
 }
 
-/* Sista menyvalet, "Logga in", visar användarnamn och ikon när man är inloggad, se js/auth.js */
-nav li:last-child a {
-    align-items: center;
-    font-weight: bold;
+/* Begränsar loggans höjd */
+nav > a > img {
+    max-height: 50px;
 }
 
-nav li:last-child img {
-    width: 1.3em;
-    aspect-ratio: 1 / 1;
+/* Loggan längst till vänster, övriga länkar till höger */
+nav > a:nth-child(1) {
+    margin-right: auto;
+    /* Skjuter allt efterföljande nav-innehåll åt höger genom att ta upp all ledig marginal */
 }
 
-/* ---------- Listor och kort ---------- */
-
-/* Rubriken ovanför svamplistan på index.html och mina-fynd.html */
-.svamp-lista > h2 {
-    font-family: "Concert One", sans-serif;
-    color: var(--gron);
-    margin-bottom: 0.8em;
-}
-
-/* Gäller även bloggens inläggslista, som också ligger direkt i en section */
+/* Svamplistan visas som ett rutnät utan punkter */
 section > ul {
     display: grid;
     /* En svamp per rad som standard, index.css lägger till fler kolumner på större skärmar */
@@ -153,15 +122,16 @@ section > ul {
     list-style: none;
 }
 
+/* Varje svampkort får ljus bakgrund, tunn kant och rundade hörn */
 section > ul > li {
     background-color: var(--yta);
     border: 1px solid var(--kant);
     border-radius: 8px;
-    /* Gör så att bilden följer de rundade hörnen */
     overflow: hidden;
+    /* Gör så att bilden följer de rundade hörnen */
 }
 
-/* Grundlayout för alla kort (svampar, jämförelser och blogginlägg). Sidornas CSS-filer bygger vidare på den. */
+/* Innehållet i kortet läggs under varandra och kortet fyller hela höjden i rutnätet */
 article {
     display: flex;
     flex-direction: column;
@@ -170,51 +140,43 @@ article {
     padding-bottom: 1em;
 }
 
-/* Bilden går kant i kant, allt annat får luft på sidorna */
+/* Ger allt förutom bilden luft till vänster och höger, bilden går kant i kant */
 article > :not(img) {
     margin-inline: 0.8em;
 }
 
-article > img {
-    width: 100%;
-    height: auto;
-    /* Låser bildens proportioner automatiskt */
-    aspect-ratio: 4 / 3;
-    /* Ser till att bilden fyller ytan snyggt utan att sträckas ut fel */
-    object-fit: cover;
-    display: block;
-}
-
-/* ---------- Svampkort (index.html och mina-fynd.html) ---------- */
-
-.svamp-lista article > img {
-    margin-bottom: 0.3em;
-}
-
-.svamp-lista h3 {
-    font-size: 1.25em;
-}
-
-.svamp-lista p {
-    line-height: 1.4;
-}
-
-/* Latinska namnet står direkt efter rubriken */
-.svamp-lista h3 + p {
+/* Det latinska namnet visas i kursiv grå text */
+article > p:nth-of-type(1) {
     font-style: italic;
     color: var(--text-gra);
 }
 
-/* Fyndplatsen är sista stycket i kortet. Den trycks ner till kortets botten så att korten ser lika ut,
-   och får en platsikon. I stället för att skapa en svg för varje element visas ikonen i ett pseudoelement. */
-.svamp-lista article > p:last-of-type {
+/* Fyndplatsen trycks ner till botten av kortet så att den hamnar i samma höjd på alla kort */
+article > p:nth-child(6) {
     margin-top: auto;
+}
+
+/* Bilden fyller kortets bredd */
+article > img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 3;
+    /* Låser bildens proportioner automatiskt */
+    object-fit: cover;
+    /* Ser till att bilden fyller ytan snyggt utan att sträckas ut fel */
+    display: block;
+}
+
+/* Platsikon framför fyndplatsen */
+.location {
     display: flex;
     align-items: center;
     gap: 0.3em;
 }
 
-.svamp-lista article > p:last-of-type::before {
+/* Istället för att skapa en svg för varje element visas platsikonen i ett pseudoelement.
+   Ikonen används som mask och fylls med textens färg (currentColor), så den följer färgpaletten. */
+.location::before {
     content: "";
     flex-shrink: 0;
     width: 1em;
@@ -226,10 +188,10 @@ article > img {
     mask-size: contain;
 }
 
-/* ---------- Statusetiketter (ätlighet och risk) ---------- */
-
-/* :where() ger regeln specificitet 0, så att sidornas egna stilar kan ändra storlek och padding */
-:where(.green, .yellow, .red) {
+/* Gemensamt utseende för ätbarhets- och riskrutorna, färgerna sätts längre ner */
+.green,
+.yellow,
+.red {
     font-weight: 600;
     width: fit-content;
     font-size: 0.8em;
@@ -237,22 +199,7 @@ article > img {
     border-radius: 5px;
 }
 
-.green {
-    background-color: var(--gron-ljus);
-    color: var(--gron);
-}
-
-.yellow {
-    background-color: var(--gul-ljus);
-    color: var(--gul);
-}
-
-.red {
-    background-color: var(--rod-ljus);
-    color: var(--rod);
-}
-
-/* Ätlighet och risk visas med <details>: statusen syns, "?" öppnar hela texten */
+/* Ätbarhet: statusen syns, "?" öppnar hela texten */
 summary {
     display: flex;
     text-align: center;
@@ -264,91 +211,130 @@ summary {
     cursor: pointer;
 }
 
-/* Cirkeln runt "?" och "×", grid centrerar tecknet i cirkeln */
+/* Ritar ett "?" i en rund ring efter statusen */
 summary::after {
     content: "?";
     display: grid;
     place-items: center;
     min-width: 20px;
-    aspect-ratio: 1 / 1;
+    aspect-ratio: 1/1;
     border: 1.5px solid currentColor;
     border-radius: 50%;
     font-size: 1em;
 }
 
+/* Byter "?" mot "×" när rutan är öppen */
 details[open] summary::after {
     content: "×";
 }
 
+/* Den fullständiga texten som visas när rutan öppnas */
 details > p {
     font-size: 1.1em;
     margin: 0.3em 0 0;
     font-weight: normal;
 }
 
-/* ---------- Hero ---------- */
+/* Grön för ätliga svampar och låg risk */
+.green {
+    background-color: var(--gron-ljus);
+    color: var(--gron);
+}
 
-/* Hero-rutan överst i header. Varje sida sätter sin egen bakgrundsbild med --hero-bild. Den mörka toningen ger kontrast mot texten. */
-header > div {
-    padding: 4em 2em;
-    color: var(--vit);
+/* Gul för oätliga svampar */
+.yellow {
+    background-color: var(--gul-ljus);
+    color: var(--gul);
+}
+
+/* Röd för giftiga svampar och hög risk */
+.red {
+    background-color: var(--rod-ljus);
+    color: var(--rod);
+}
+
+/* Lite avstånd mellan bilden och namnet */
+.svamp-lista article > img {
+    margin-bottom: 0.3em;
+}
+
+/* Storlek på svampens svenska namn */
+.svamp-lista h3 {
+    font-size: 1.25em;
+}
+
+/* Mer radavstånd så att texten blir lättare att läsa */
+.svamp-lista p {
+    line-height: 1.4;
+}
+
+/* Heron har vit text (--yta) och en mörk toning över bakgrundsbilden så att texten syns tydligt.
+   Varje sida sätter sin egen bakgrundsbild med --hero-bild */
+.hero {
+    padding: 3em 1.5em;
+    color: var(--yta);
     background-image: linear-gradient(var(--skugga), var(--skugga)), var(--hero-bild);
     background-position: center bottom;
 }
 
-header > div h1 {
+/* Sidans huvudrubrik i heron */
+.hero h1 {
     font-size: 2.5em;
     margin-bottom: 0.2em;
 }
 
-header > div p {
-    max-width: 600px;
+/* Begränsar textens bredd så att raderna inte blir för långa */
+.hero p {
+    max-width: 480px;
     font-size: 1.1em;
     line-height: 1.5;
 }
 
-/* ---------- Större skärmar ---------- */
-
-@media (min-width: 700px) {
-    body {
-        margin: 1em auto;
+/* På små skärmar: mer luft och navigeringen bryts till två rader */
+@media (max-width: 600px) {
+    main {
+        padding: 3em 2em;
     }
 
-    /* Loggan till vänster och menyvalen på en rad till höger */
+    .hero {
+        padding: 4em 2em;
+    }
+
     nav {
-        flex-direction: row;
-        column-gap: 3em;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    nav > a:nth-child(1) {
+        text-align: center;
+        flex-basis: 100%;
+        /* loggan tar hela övre raden, övriga länkar hamnar under */
+    }
+}
+
+/* Mer luft runt sidan och större text i heron på större skärmar */
+@media (min-width: 900px) {
+    body {
+        margin: 2em auto;
+    }
+
+    nav {
         border-radius: 10px 10px 0 0;
-    }
-
-    /* Skjuter menyn åt höger genom att ta upp all ledig marginal */
-    nav > a {
-        margin-right: auto;
-    }
-
-    nav ul {
-        flex-direction: row;
-        align-self: auto;
-        column-gap: 3em;
-    }
-
-    nav li + li {
-        border-top: none;
     }
 
     main {
         padding: 4em 2em;
     }
 
-    header > div {
+    .hero {
         padding: 4em;
     }
 
-    header > div h1 {
+    .hero h1 {
         font-size: 4em;
     }
 
-    header > div p {
+    .hero p {
         font-size: 1.3em;
     }
 }

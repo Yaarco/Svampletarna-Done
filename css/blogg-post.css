@@ -1,5 +1,12 @@
 /* Stilar för blogg-post.html, ett enskilt inlägg med kommentarer. Bygger vidare på blogg.css. */
 
+/* "Blogg" i menyn markeras även här. Länken har aria-current="true" eftersom inlägget inte är själva bloggsidan */
+nav > a[aria-current="true"] {
+    color: var(--gron);
+    font-weight: bold;
+    border-bottom: 2px solid var(--gron);
+}
+
 /* Inlägget tar hela bredden, inte sida vid sida som på blogg.html */
 main {
     flex-direction: column;
@@ -14,6 +21,7 @@ main {
     margin-left: 0.5em;
 }
 
+/* Inlägget som rutnät: rubrik och datum överst, sedan användare, text och kommentarer */
 .main-post {
     display: grid;
     grid-template-columns: 1fr auto;
@@ -35,10 +43,12 @@ main {
     font-style: italic;
 }
 
+/* Inläggets text tar hela bredden */
 .main-post > .content {
     grid-area: content;
 }
 
+/* Datumet uppe till höger, på en rad */
 .main-post > .date {
     grid-area: date;
     white-space: nowrap;
@@ -66,7 +76,8 @@ main {
     gap: 1em;
 }
 
-.comments article {
+/* En kommentar: användare och datum på första raden, texten under */
+.comments li {
     display: grid;
     grid-template-columns: 1fr auto;
     grid-template-areas:
@@ -76,22 +87,26 @@ main {
     gap: 0.3em 1em;
 }
 
-.comments article > * {
+/* Tar bort standardmarginalerna, avståndet styrs av gap */
+.comments li > * {
     margin: 0;
 }
 
-.comments article .user {
+/* Kommentarens användarnamn i kursiv grå text */
+.comments li .user {
     grid-area: user;
     color: var(--text-gra);
     font-weight: bold;
     font-style: italic;
 }
 
-.comments article .content {
+/* Kommentarens text tar hela bredden */
+.comments li .content {
     grid-area: content;
 }
 
-.comments article .date {
+/* Kommentarens datum till höger, på en rad */
+.comments li .date {
     grid-area: date;
     white-space: nowrap;
     color: var(--text-gra);

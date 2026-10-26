@@ -19,18 +19,21 @@ async function fetchData() {
         const mushroomsJSON = await mushroomsResponse.json();
 
         // Skickar jämförelserna och svamparna vidare för att visas på sidan
-        displayComparisons(comparisonJSON.särskiljande_egenskaper, mushroomsJSON.svampar);
+        displayComparisons(
+            comparisonJSON.särskiljande_egenskaper,
+            mushroomsJSON.svampar
+        );
+
     } catch (error) {
         // Skriver felet i konsolen och visar ett meddelande på sidan
         console.error("Fel:", error);
-        document.querySelector("main > section > div").textContent = "Informationen kunde inte laddas.";
+        document.getElementById("jamforelselista").textContent = "Informationen kunde inte laddas.";
     }
 }
 
 // Skapar och visar alla jämförelser
 function displayComparisons(comparisons, mushrooms) {
-    // Den tomma div:en under rubriken och ingressen i om-svampar.html
-    const comparisonList = document.querySelector("main > section > div");
+    const comparisonList = document.getElementById("jamforelselista");
     comparisonList.textContent = "";
 
     // Skapar en artikel för varje jämförelse och lägger till den på sidan
@@ -43,17 +46,25 @@ function displayComparisons(comparisons, mushrooms) {
 // Skapar en artikel med rubrik, risktext, bilder och punktlista
 function createComparisonElement(comparison, mushrooms) {
     const comparisonElement = document.createElement("article");
+    comparisonElement.className = "jamforelse";
 
     const heading = document.createElement("h3");
     heading.textContent = comparison.par;
 
-    // Risken visas som en <details>: kort status i <summary>, hela texten när man öppnar den
     const risk = document.createElement("details");
     const riskSummary = document.createElement("summary");
     const riskText = document.createElement("p");
-    riskSummary.textContent = "Risk: " + comparison.risk.split(" – ")[0];
-    riskText.textContent = comparison.risk;
-    risk.append(riskSummary, riskText);
+
+    risk.className = "risk";
+
+    const riskLevel = comparison.risk.split(" – ")[0];
+    riskSummary.textContent = "Risk: " + riskLevel;
+
+    const riskDescription = comparison.risk;
+    riskText.textContent = riskDescription;
+
+    risk.appendChild(riskSummary);
+    risk.appendChild(riskText);
 
     // Väljer färg på riskrutan utifrån risktexten
     if (comparison.risk.includes("Låg")) {
@@ -70,6 +81,7 @@ function createComparisonElement(comparison, mushrooms) {
 
     // Samlar bilderna och punktlistan i en gemensam div
     const content = document.createElement("div");
+    content.className = "jamforelse-innehall";
     content.append(imageContainer, featureList);
 
     // Lägger till allt innehåll i artikeln och returnerar den
@@ -81,21 +93,23 @@ function createComparisonElement(comparison, mushrooms) {
 // Hittar svampar som nämns i rubriken och skapar deras bilder
 function createMushroomImages(comparison, mushrooms) {
     const imageContainer = document.createElement("div");
+    imageContainer.className = "jamforelse-bilder";
 
     mushrooms.forEach(mushroom => {
+        const heading = comparison.par;
         const name = mushroom.svenskt_namn;
 
-        if (comparison.par.includes(name)) {
+        if (heading.includes(name)) {
             const figure = document.createElement("figure");
 
-            // Namnet står i bildtexten, därför är bilden dekorativ
             const image = document.createElement("img");
-            // Bildsökvägen i JSON är "./filnamn.jpeg", men bilderna ligger i mappen img/
+
+            // Byter "./" i bildens sökväg till vår bildmapp
             image.src = mushroom.bild.replace("./", "img/");
-            image.alt = "";
+            image.alt = mushroom.svenskt_namn;
 
             const caption = document.createElement("figcaption");
-            caption.textContent = name;
+            caption.textContent = mushroom.svenskt_namn;
 
             figure.append(image, caption);
             imageContainer.appendChild(figure);
@@ -121,4 +135,4 @@ function createFeatureList(features) {
 }
 
 // Startar sidan när den har laddats
-window.addEventListener("load", init);
+window.onload = init;

@@ -1,7 +1,7 @@
 /* Stilar för blogg.html. Används även av blogg-post.html, som har egna tillägg i blogg-post.css. */
 
 /* Bakgrundsbild i hero-rutan */
-header > div {
+.hero {
     --hero-bild: url("../img/alla-svampar-bakgrund.jpg");
 }
 
@@ -30,6 +30,7 @@ h2 {
     margin-bottom: 0.8em;
 }
 
+/* Länkarna i inläggslistan ser ut som vanlig text, hela kortet är klickbart */
 a {
     text-decoration: none;
     color: inherit;
@@ -37,12 +38,14 @@ a {
 
 /* ---------- Formulär för att skapa inlägg ---------- */
 
+/* Etiketter och fält under varandra */
 .post-create form {
     display: flex;
     flex-direction: column;
     gap: 0.5em;
 }
 
+/* Etiketterna i samma typsnitt som rubrikerna */
 .post-create label {
     font-weight: bold;
     font-family: "Concert One", sans-serif;
@@ -50,42 +53,50 @@ a {
     font-size: 1.1em;
 }
 
+/* Luft ovanför varje etikett utom den första */
 .post-create label:not(:first-child) {
     margin-top: 0.7em;
 }
 
+/* Fälten ärver sidans typsnitt och får en grön kant */
 .post-create input,
 .post-create textarea {
     font: inherit;
     border: 1px solid var(--gron);
     border-radius: 5px;
     padding: 0.4em 0.6em;
-    background-color: white;
+    background-color: var(--yta);
 }
 
+/* Textrutan kan bara dras ut på höjden, inte bredden */
 .post-create textarea {
     resize: vertical;
 }
 
+/* Tydlig ram runt fältet man skriver i */
 .post-create input:focus,
 .post-create textarea:focus {
     outline: 2px solid var(--gron-ljus);
 }
 
+/* Publicera-knappen till vänster under fälten */
 .post-create button {
     align-self: flex-start;
     margin-top: 1em;
     font-size: 1.1em;
-    color: var(--vit);
+    color: var(--yta);
     background-color: var(--gron);
     font-family: "Concert One", sans-serif;
 }
 
+/* Mörkare grön när muspekaren hålls över knappen */
 .post-create button:hover {
     background-color: var(--gron-mork);
 }
 
 /* ---------- Lista med inlägg ---------- */
+
+/* Inläggen under varandra */
 .posts ul {
     list-style: none;
     padding: 0;
@@ -94,6 +105,8 @@ a {
     gap: 0.8em;
 }
 
+/* Ett inlägg i listan: titel och datum överst, användare och antal kommentarer under.
+   position: relative behövs för att länken ska kunna täcka hela kortet. */
 .posts article {
     display: grid;
     grid-template-columns: 1fr auto;
@@ -104,7 +117,7 @@ a {
     align-items: baseline;
     gap: 0.3em 1em;
     padding: 1em 1.2em;
-    background-color: var(--vit);
+    background-color: var(--bakgrund);
     border: 1px solid var(--kant);
     border-left: 4px solid var(--gron);
     border-radius: 6px;
@@ -121,16 +134,20 @@ a {
     inset: 0;
 }
 
+/* Kortet lyfts lite när man pekar på det eller tabbar till länken */
 .posts article:has(a:hover),
 .posts article:has(a:focus-visible) {
     transform: translateY(-2px);
-    box-shadow: 0 4px 10px rgb(0 0 0 / 0.1);
+    /* En svagare variant av --skugga */
+    box-shadow: 0 4px 10px color-mix(in srgb, var(--skugga) 15%, transparent);
 }
 
+/* Tar bort standardmarginalerna, avståndet styrs av gap */
 .posts article > * {
     margin: 0;
 }
 
+/* Inläggets titel */
 .posts article h3 {
     grid-area: title;
     font-family: "Concert One", sans-serif;
@@ -138,6 +155,7 @@ a {
     text-wrap: balance;
 }
 
+/* Användare, datum och antal kommentarer i mindre grå text */
 .posts article p,
 .posts article time {
     font-style: normal;
@@ -145,16 +163,19 @@ a {
     color: var(--text-gra);
 }
 
+/* Användarnamnet på egen rad */
 .posts article .user {
     grid-area: user;
     font-weight: bold;
 }
 
+/* Datumet uppe till höger, på en rad */
 .posts article .date {
     grid-area: date;
     white-space: nowrap;
 }
 
+/* Pratbubbla och antal kommentarer på samma rad */
 .posts article .comments {
     grid-area: comments;
     display: flex;
@@ -162,6 +183,7 @@ a {
     gap: 0.3em;
 }
 
+/* Pratbubblan lika stor som texten */
 .posts article .comments img {
     width: 1em;
     height: 1em;

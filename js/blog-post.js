@@ -28,4 +28,5 @@ function init() {
         timeStyle: "short",
     });
 }
-window.addEventListener("load", init);
+// Startar sidan när den har laddats, som i de andra skripten
+window.onload = init;

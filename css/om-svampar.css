@@ -1,43 +1,42 @@
-/* Stilar för om-svampar.html. Jämförelserna skapas av js/om-svampar.js. */
-
-/* Bakgrundsbild i hero-rutan */
-header > div {
+/* Sätter sidans bakgrundsbild i heron, den mörka toningen läggs på i global.css */
+.hero {
     --hero-bild: url("../img/om-svampar-bakgrund.jpg");
 }
 
-/* Ingressen under rubriken */
-main > section > p {
+/* Gör introtexten under rubriken grå */
+main > p {
     color: var(--text-gra);
 }
 
-/* En ruta per förväxlingspar. Mobil: allt under varandra (article är en flex-kolumn från global.css) */
-main article {
+/* Varje jämförelse visas som ett vitt kort med ett rutnät i tre kolumner */
+.jamforelse {
     margin-top: 16px;
-    margin-bottom: 10px;
     border-radius: 8px;
     padding: 16px;
     gap: 10px;
-    background-color: var(--vit);
+    background-color: var(--yta);
+    margin-bottom: 10px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: auto auto;
 }
 
-/* Risketiketten */
-main article > details {
-    font-weight: bold;
-    font-style: normal;
-    border-radius: 8px;
-    padding: 8px;
-    text-align: center;
+/* Rubriken tar de två första kolumnerna så att riskrutan får plats till höger */
+.jamforelse h3 {
+    grid-column: 1 / 3;
 }
 
-/* Bilderna och punktlistan */
-main article > div {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
+/* Bilderna och punktlistan ligger bredvid varandra över hela kortets bredd */
+.jamforelse-innehall {
+    grid-column: 1 / 4;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 50px;
 }
 
-/* Bilderna på de två svamparna bredvid varandra */
-main article > div > div {
+/* Visar svampbilderna bredvid varandra med namnen centrerade under */
+.jamforelse-bilder {
+    grid-column: 1 / 2;
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 10px;
@@ -45,11 +44,22 @@ main article > div > div {
     font-weight: bold;
 }
 
-main figure {
+.jamforelse-bilder figure {
     width: 100%;
 }
 
-main figure img {
+/* Riskrutan ligger i högra kolumnen, färgen sätts med klasserna green, yellow och red */
+.risk {
+    font-weight: bold;
+    font-style: normal;
+    border-radius: 8px;
+    padding: 8px;
+    grid-column: 3 / 4;
+    text-align: center;
+}
+
+/* Ger alla bilder samma proportioner och beskär dem i stället för att sträcka ut dem */
+.jamforelse-bilder img {
     width: 100%;
     max-width: 250px;
     aspect-ratio: 4 / 3;
@@ -59,30 +69,15 @@ main figure img {
     margin: 0 auto 8px;
 }
 
-/* Större skärmar: rubrik och risk överst, bilder till vänster och punktlista till höger under */
-@media (min-width: 600px) {
-    main article {
-        display: grid;
-        grid-template-columns: 1fr 1fr 1fr;
-        grid-template-rows: auto auto;
+/* På små skärmar hamnar innehållet under varandra i stället för i rutnät */
+@media (max-width: 600px) {
+    .jamforelse {
+        display: flex;
     }
 
-    main article > h3 {
-        grid-column: 1 / 3;
-    }
-
-    main article > details {
-        grid-column: 3 / 4;
-    }
-
-    main article > div {
-        grid-column: 1 / 4;
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 50px;
-    }
-
-    main article > div > div {
-        grid-column: 1 / 2;
+    .jamforelse-innehall {
+        gap: 5px;
+        display: flex;
+        flex-direction: column;
     }
 }

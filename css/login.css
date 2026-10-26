@@ -1,7 +1,7 @@
 /* Stilar för login.html */
 
 /* Bakgrundsbild i hero-rutan */
-header > div {
+.hero {
     --hero-bild: url("../img/alla-svampar-bakgrund.jpg");
 }
 
@@ -12,8 +12,9 @@ main {
     padding-top: 2em;
 }
 
-main > div,
-main > section {
+/* :not([hidden]) så att display: flex inte tar över hidden-attributet som auth.js sätter */
+main > div:not([hidden]),
+main > section:not([hidden]) {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -29,6 +30,7 @@ main > div > p {
 
 /* ---------- Formulär ---------- */
 
+/* Etiketter och fält under varandra */
 form {
     display: flex;
     flex-direction: column;
@@ -36,6 +38,7 @@ form {
     width: fit-content;
 }
 
+/* Etiketterna i samma typsnitt som rubrikerna */
 label {
     font-weight: bold;
     font-family: "Concert One", sans-serif;
@@ -48,18 +51,20 @@ input + label {
     margin-top: 0.7em;
 }
 
+/* Fälten får en grön kant */
 input {
     border: 1px solid var(--gron);
     border-radius: 5px;
     padding: 0.3em 0.5em;
 }
 
+/* Logga in-knappen */
 form button {
     font-size: 1.2em;
     padding: 0.4em 0.8em;
     border: 1px solid var(--kant);
     border-radius: 6px;
-    color: var(--vit);
+    color: var(--yta);
     background-color: var(--gron);
     font-family: "Concert One", sans-serif;
 }
@@ -67,7 +72,7 @@ form button {
 /* Knappen "Logga ut" i välkomstrutan */
 main > section button {
     font-size: 1.2em;
-    color: var(--vit);
+    color: var(--yta);
     border: none;
     background-color: var(--text);
 }

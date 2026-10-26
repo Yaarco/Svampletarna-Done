@@ -45,14 +45,16 @@ if (loginForm) {
     });
 }
 
-// På alla sidor: byter texten "Logga in" (sista menyvalet) mot användarnamnet och en ikon
+// På alla sidor: byter texten "Logga in" i menyn mot användarnamnet och en ikon
 if (storedUser === USERNAME) {
-    const loginLink = document.querySelector("nav li:last-child a");
-    loginLink.textContent = storedUser;
+    const loginLink = document.querySelector('nav > a[href="login.html"]');
+    loginLink.textContent = storedUser + " ";
 
-    // Ikonen är dekorativ, namnet står redan i länken
+    // Ikonen är dekorativ, namnet står redan i länken. Storleken sätts här eftersom global.css inte har någon regel för den.
     const userIcon = document.createElement("img");
     userIcon.src = "img/user.svg";
     userIcon.alt = "";
+    userIcon.width = 18;
+    userIcon.height = 18;
     loginLink.appendChild(userIcon);
 }

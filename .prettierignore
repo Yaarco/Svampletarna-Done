@@ -1,3 +1,11 @@
 # Genereras av tsc från ts/, formateras inte för hand
 js/blog.js
 js/blog-post.js
+
+# Kommer från Svampletarna-G5 (upstream) och hålls lika med den, formateras inte här
+*.html
+js/index.js
+js/mina-fynd.js
+js/om-svampar.js
+js/script.js
+json/
