@@ -1,68 +1,70 @@
-/* Sätter sidans bakgrundsbild i heron, den mörka toningen läggs på i global.css */
-.hero {
+/* Stilar för mina-fynd.html. Svampkorten i sig stylas i global.css. */
+
+/* Bakgrundsbild i hero-rutan */
+header > div {
     --hero-bild: url("../img/mina-fynd-bakgrund.jpg");
 }
 
 /* Rutan med antal fynd och "Rensa alla fynd" */
-main>div {
+main > div {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 1em;
     margin-bottom: 1em;
     border-radius: 8px;
-    background-color: #c9daae;
+    background-color: var(--gron-ljus);
     font-weight: bold;
 }
 
-/* Röda knappar med vit text för att visa att de tar bort fynd */
+/* Röda knappar eftersom de tar bort fynd */
 main button {
-    color: #fff;
+    color: var(--vit);
     border: none;
-    background-color: #a52222;
+    background-color: var(--rod);
 }
 
-/* Bild till vänster, text i mitten, knapp till höger */
+/* Mobil: bild, text och knapp under varandra (article är en flex-kolumn från global.css) */
 article {
-    display: grid;
-    grid-template-columns: 100px 1fr auto;
-    align-items: center;
+    align-items: flex-start;
     column-gap: 1em;
     row-gap: 0.2em;
     padding: 0.8em;
 }
 
-/* Lägger all text i mittenkolumnen */
-article> :not(img) {
+article > :not(img) {
     margin-inline: 0;
-    grid-column: 2;
 }
 
-/* Gör bilden kvadratisk och låter den sträcka sig över textraderna */
-article>img {
-    grid-row: 1 / 5;
+article > img {
+    width: 100%;
     aspect-ratio: 1;
     border-radius: 6px;
 }
 
-/* Lägger knappen i högra kolumnen, i höjd med texten */
-article>button {
-    grid-column: 3;
-    grid-row: 1 / 5;
+article > button {
+    width: 100%;
 }
 
-/* På små skärmar hamnar allt under varandra och bild och knapp blir fullbreda */
-@media (max-width: 600px) {
+/* Större skärmar: bild till vänster, text i mitten, knapp till höger */
+@media (min-width: 600px) {
     article {
-        display: flex;
-        align-items: flex-start;
+        display: grid;
+        grid-template-columns: 100px 1fr auto;
+        align-items: center;
     }
 
-    article>button {
-        width: 100%;
+    article > :not(img) {
+        grid-column: 2;
     }
 
-    article>img {
-        width: 100%;
+    article > img {
+        grid-row: 1 / 5;
+    }
+
+    article > button {
+        grid-column: 3;
+        grid-row: 1 / 5;
+        width: auto;
     }
 }

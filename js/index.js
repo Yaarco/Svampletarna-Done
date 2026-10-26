@@ -1,44 +1,43 @@
-// Startar hämtningen av JSON-filen direkt när skriptet körs, init väntar sedan på svaret
-let mushroomsJSON = fetch("./json/svampar.json")
-    .then(r => r.json());
+// Logik för index.html: visar alla svampar och sparar dem användaren markerar som hittade.
+// createMushroomElement() kommer från js/script.js.
 
-// Visar alla svampar och gör att "Markera som hittad" sparar svampen i localStorage
+// Hämtar alla svampar och skapar ett kort för varje
 async function init() {
-    mushroomsJSON = await mushroomsJSON;
-    let mushrooms = mushroomsJSON.svampar;
+    const response = await fetch("json/svampar.json");
+    const mushroomsJSON = await response.json();
+    const mushrooms = mushroomsJSON.svampar;
 
+    // Namnen på svampar som redan är sparade, lagras som en JSON-array i localStorage
     const savedMushrooms = JSON.parse(localStorage.getItem("mushrooms")) || [];
 
-    // Skapar ett kort för varje svamp och döljer knappen på de som redan är hittade
     mushrooms.forEach(mushroom => {
         const mushroomElement = createMushroomElement(mushroom);
-        const button = mushroomElement.querySelector(".btn-find");
+        const button = mushroomElement.querySelector("button");
 
+        // En svamp som redan finns i fynden kan inte markeras igen
         if (savedMushrooms.includes(mushroom.svenskt_namn)) {
             button.hidden = true;
         }
-    });
 
-    const findButtons = document.querySelectorAll(".btn-find");
-
-    // Sparar svampen i localStorage när användaren klickar och döljer sedan knappen
-    findButtons.forEach(btnFind => {
-        btnFind.addEventListener("click", e => {
-            const mushroomId = e.currentTarget.dataset.svampId;
-
-            const savedMushrooms = JSON.parse(localStorage.getItem("mushrooms")) || [];
-
-            // Lägger bara till svampen om den inte redan finns i listan
-            if (!savedMushrooms.includes(mushroomId)) {
-                savedMushrooms.push(mushroomId);
-            }
-
-            localStorage.setItem("mushrooms", JSON.stringify(savedMushrooms));
-
-            btnFind.hidden = true;
-        });
+        button.addEventListener("click", saveMushroom);
     });
 }
 
-// Startar sidan när den har laddats
-window.onload = init;
+// Sparar svampen vars knapp klickades i localStorage och döljer knappen
+function saveMushroom(event) {
+    const button = event.currentTarget;
+    const mushroomId = button.dataset.svampId;
+
+    // Läser in listan på nytt ifall den har ändrats sedan sidan laddades
+    const savedMushrooms = JSON.parse(localStorage.getItem("mushrooms")) || [];
+
+    if (!savedMushrooms.includes(mushroomId)) {
+        savedMushrooms.push(mushroomId);
+    }
+
+    localStorage.setItem("mushrooms", JSON.stringify(savedMushrooms));
+
+    button.hidden = true;
+}
+
+window.addEventListener("load", init);

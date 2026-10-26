@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="sv">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logga in</title>
+    <link rel="icon" href="img/svamp.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/login.css">
+    <script src="js/auth.js" defer></script>
+</head>
+
+<body>
+    <header>
+        <nav>
+            <a href="index.html"><img src="img/svampletarna-logo.png" alt="Svampletarna – till startsidan"></a>
+            <ul>
+                <li><a href="index.html">Alla svampar</a></li>
+                <li><a href="mina-fynd.html">Mina fynd</a></li>
+                <li><a href="om-svampar.html">Om svampar</a></li>
+                <li><a href="blogg.html">Blogg</a></li>
+                <li><a href="login.html" aria-current="page">Logga in</a></li>
+            </ul>
+        </nav>
+        <div>
+            <h1>Logga in</h1>
+            <p>
+                För att kunna skapa blogginlägg måste du logga in med ditt användarnamn och lösenord.
+            </p>
+        </div>
+    </header>
+    <main>
+        <div>
+            <p role="alert"></p>
+            <form action="login.html" method="post">
+                <label for="username">Användarnamn:</label>
+                <input type="text" name="username" id="username" autocomplete="username" required>
+
+                <label for="password">Lösenord:</label>
+                <input type="password" name="password" id="password" autocomplete="current-password" required>
+
+                <button type="submit">Logga in</button>
+            </form>
+        </div>
+        <section>
+            <h2>Välkommen <span>användare</span>! Du är nu inloggad.</h2>
+            <a href="blogg.html">Testa skriva ett blogginlägg</a>
+            <button type="button">Logga ut</button>
+        </section>
+    </main>
+    <footer>
+        <p>Grupp 5 2026</p>
+    </footer>
+</body>
+
+</html>

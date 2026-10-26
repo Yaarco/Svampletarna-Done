@@ -1,0 +1,179 @@
+/* Stilar för blogg.html. Används även av blogg-post.html, som har egna tillägg i blogg-post.css. */
+
+/* Bakgrundsbild i hero-rutan */
+header > div {
+    --hero-bild: url("../img/alla-svampar-bakgrund.jpg");
+}
+
+/* Mobil: formuläret och inläggen under varandra */
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 3em;
+}
+
+/* Ljusa rutor runt formuläret, inläggslistan och inlägget på blogg-post.html */
+section,
+.main-post {
+    width: 100%;
+    background-color: var(--yta);
+    border: 1px solid var(--kant);
+    border-radius: 8px;
+    padding: 1.5em;
+}
+
+/* Rubriker och länkar i samma stil som resten av sajten */
+h2 {
+    font-family: "Concert One", sans-serif;
+    color: var(--gron);
+    margin-bottom: 0.8em;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* ---------- Formulär för att skapa inlägg ---------- */
+
+.post-create form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+}
+
+.post-create label {
+    font-weight: bold;
+    font-family: "Concert One", sans-serif;
+    letter-spacing: 0.05em;
+    font-size: 1.1em;
+}
+
+.post-create label:not(:first-child) {
+    margin-top: 0.7em;
+}
+
+.post-create input,
+.post-create textarea {
+    font: inherit;
+    border: 1px solid var(--gron);
+    border-radius: 5px;
+    padding: 0.4em 0.6em;
+    background-color: white;
+}
+
+.post-create textarea {
+    resize: vertical;
+}
+
+.post-create input:focus,
+.post-create textarea:focus {
+    outline: 2px solid var(--gron-ljus);
+}
+
+.post-create button {
+    align-self: flex-start;
+    margin-top: 1em;
+    font-size: 1.1em;
+    color: var(--vit);
+    background-color: var(--gron);
+    font-family: "Concert One", sans-serif;
+}
+
+.post-create button:hover {
+    background-color: var(--gron-mork);
+}
+
+/* ---------- Lista med inlägg ---------- */
+.posts ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8em;
+}
+
+.posts article {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-areas:
+        "title    date"
+        "user     user"
+        "comments comments";
+    align-items: baseline;
+    gap: 0.3em 1em;
+    padding: 1em 1.2em;
+    background-color: var(--vit);
+    border: 1px solid var(--kant);
+    border-left: 4px solid var(--gron);
+    border-radius: 6px;
+    position: relative;
+    transition:
+        transform 0.15s,
+        box-shadow 0.15s;
+}
+
+/* Länken ligger i rubriken men täcker hela kortet */
+.posts article h3 a::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+}
+
+.posts article:has(a:hover),
+.posts article:has(a:focus-visible) {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgb(0 0 0 / 0.1);
+}
+
+.posts article > * {
+    margin: 0;
+}
+
+.posts article h3 {
+    grid-area: title;
+    font-family: "Concert One", sans-serif;
+    color: var(--gron);
+    text-wrap: balance;
+}
+
+.posts article p,
+.posts article time {
+    font-style: normal;
+    font-size: 0.9em;
+    color: var(--text-gra);
+}
+
+.posts article .user {
+    grid-area: user;
+    font-weight: bold;
+}
+
+.posts article .date {
+    grid-area: date;
+    white-space: nowrap;
+}
+
+.posts article .comments {
+    grid-area: comments;
+    display: flex;
+    align-items: center;
+    gap: 0.3em;
+}
+
+.posts article .comments img {
+    width: 1em;
+    height: 1em;
+}
+
+/* Större skärmar: inläggen till vänster och formuläret till höger */
+@media (min-width: 750px) {
+    main {
+        flex-direction: row-reverse;
+    }
+
+    .post-create {
+        width: 60%;
+    }
+}

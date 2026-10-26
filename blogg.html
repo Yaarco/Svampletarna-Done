@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="sv">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Svampbloggen</title>
+    <link rel="icon" href="img/svamp.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/blogg.css">
+    <script src="js/auth.js" defer></script>
+    <script src="js/blog.js" defer></script>
+</head>
+
+<body>
+    <header>
+        <nav>
+            <a href="index.html"><img src="img/svampletarna-logo.png" alt="Svampletarna – till startsidan"></a>
+            <ul>
+                <li><a href="index.html">Alla svampar</a></li>
+                <li><a href="mina-fynd.html">Mina fynd</a></li>
+                <li><a href="om-svampar.html">Om svampar</a></li>
+                <li><a href="blogg.html" aria-current="page">Blogg</a></li>
+                <li><a href="login.html">Logga in</a></li>
+            </ul>
+        </nav>
+        <div>
+            <h1>Blogg</h1>
+            <p>Här kan du lägga upp blogginlägg om du är inloggad.</p>
+        </div>
+    </header>
+    <main>
+        <section class="post-create">
+            <h2>Skapa blogginlägg</h2>
+            <form>
+                <label for="title">Titel:</label>
+                <input maxlength="50" type="text" name="title" id="title" required>
+
+                <label for="content">Text:</label>
+                <textarea name="content" id="content" rows="5" required></textarea>
+
+                <button type="submit">Publicera</button>
+            </form>
+        </section>
+        <section class="posts">
+            <h2>Inlägg</h2>
+            <ul>
+                <template>
+                    <li>
+                        <article>
+                            <h3 class="title"><a href="#">Titel</a></h3>
+                            <p class="user">Användare</p>
+                            <time class="date" datetime="2026-09-20T18:45">20 sep. 18:45</time>
+                            <p class="comments"><img src="img/comment.svg" alt="Kommentarer"><span>0</span></p>
+                        </article>
+                    </li>
+                </template>
+            </ul>
+        </section>
+    </main>
+    <footer>
+        <p>Grupp 5 2026</p>
+    </footer>
+</body>
+
+</html>

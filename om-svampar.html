@@ -5,31 +5,37 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Om svampar</title>
+    <link rel="icon" href="img/svamp.svg" type="image/svg+xml">
     <link rel="stylesheet" href="css/global.css">
     <link rel="stylesheet" href="css/om-svampar.css">
+    <script src="js/auth.js" defer></script>
     <script src="js/om-svampar.js" defer></script>
 </head>
 
 <body>
     <header>
         <nav>
-            <a href="index.html">
-                <img class="logo" src="img/svampletarna-logo.png" alt="Svampletarna logotype">
-            </a>
-            <a href="index.html">Alla svampar</a>
-            <a href="mina-fynd.html">Mina fynd</a>
-            <a href="om-svampar.html" aria-current="page">Om svampar</a>
+            <a href="index.html"><img src="img/svampletarna-logo.png" alt="Svampletarna – till startsidan"></a>
+            <ul>
+                <li><a href="index.html">Alla svampar</a></li>
+                <li><a href="mina-fynd.html">Mina fynd</a></li>
+                <li><a href="om-svampar.html" aria-current="page">Om svampar</a></li>
+                <li><a href="blogg.html">Blogg</a></li>
+                <li><a href="login.html">Logga in</a></li>
+            </ul>
         </nav>
-
-        <div class="hero">
+        <div>
             <h1>Om svampar</h1>
             <p>Lär dig mer om svampar, hur man känner igen dem och vilka risker som finns vid svamplockning.</p>
         </div>
     </header>
     <main>
-        <h2>Särskiljande egenskaper</h2>
-        <p>Här är exempel på vanliga förväxlingar och hur du kan skilja svamparna åt</p>
-        <div id="jamforelselista"></div>
+        <section>
+            <h2>Särskiljande egenskaper</h2>
+            <p>Här är exempel på vanliga förväxlingar och hur du kan skilja svamparna åt.</p>
+            <!-- Fylls med en article per förväxlingspar av js/om-svampar.js -->
+            <div></div>
+        </section>
     </main>
     <footer>
         <p>Grupp 5 2026</p>

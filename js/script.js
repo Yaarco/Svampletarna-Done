@@ -1,46 +1,47 @@
-// Hämtar templaten för ett svampkort och listan som korten ska läggas i
-const templateEl = document.querySelector("template");
+// Gemensam kod för index.html och mina-fynd.html.
+// Båda sidorna visar svampkort och har en <template> med ett tomt kort i HTML:en.
+// Filen laddas före index.js/mina-fynd.js, som anropar createMushroomElement().
 
-const mushroomList = document.querySelector("ul");
-mushroomList.removeChild(templateEl);
+const mushroomTemplate = document.querySelector("template");
+const mushroomList = document.querySelector(".svamp-lista ul");
 
-// Skapar ett svampkort utifrån en svamp i JSON-filen, lägger till det i listan och returnerar det
-function createMushroomElement({
-    svenskt_namn,
-    latinskt_namn,
-    ätlig,
-    bild,
-    fyndplats,
-    beskrivning,
-}) {
-    // Skapar en kopia av <li> i templaten
-    const listElement = templateEl.content.firstElementChild.cloneNode(true);
-    const contentElements = listElement.firstElementChild.children;
+// Skapar ett svampkort från ett objekt i json/svampar.json, lägger det i listan och returnerar <li>-elementet.
+// Parametrarna packas upp direkt ur objektet. JSON-nyckeln "ätlig" byter namn till edibility.
+function createMushroomElement({ svenskt_namn, latinskt_namn, ätlig: edibility, bild, fyndplats, beskrivning }) {
+    // Klonar innehållet i mallen så att varje kort blir ett eget element
+    const listElement = mushroomTemplate.content.firstElementChild.cloneNode(true);
+    const article = listElement.querySelector("article");
 
-    // Byter "./" i bildens sökväg till vår bildmapp
-    contentElements[0].src = bild.replace("./", "img/");
-    contentElements[0].alt = svenskt_namn;
-    contentElements[1].textContent = svenskt_namn;
-    contentElements[2].textContent = latinskt_namn;
-    // Bara statusen ("Ätlig", "Giftig" ...) syns, hela texten visas när man trycker på texten eller "?"
-    const ätbarStatus = ätlig.split(" – ")[0];
-    contentElements[3].querySelector("summary").textContent = ätbarStatus;
-    contentElements[3].querySelector("p").textContent = ätlig;
+    // Bildsökvägen i JSON är "./filnamn.jpeg", men bilderna ligger i mappen img/
+    // Namnet står redan i rubriken bredvid, därför är bilden dekorativ (alt="" i mallen)
+    article.querySelector(":scope > img").src = bild.replace("./", "img/");
 
-    const status = ätbarStatus.toLowerCase();
+    // Fälten hittas utifrån ordningen i mallen: rubrik, latinskt namn direkt efter, sedan
+    // <details> med ätligheten, beskrivning direkt efter den och fyndplats som sista stycke
+    article.querySelector(":scope > h3").textContent = svenskt_namn;
+    article.querySelector(":scope > h3 + p").textContent = latinskt_namn;
+    article.querySelector(":scope > details + p").textContent = beskrivning;
+    article.querySelector(":scope > p:last-of-type").textContent = fyndplats;
+
+    // Bara statusen ("Ätlig", "Giftig" ...) syns, hela texten visas när man öppnar <details>
+    const edibilityElement = article.querySelector(":scope > details");
+    const edibilityStatus = edibility.split(" – ")[0];
+    edibilityElement.querySelector("summary").textContent = edibilityStatus;
+    edibilityElement.querySelector("p").textContent = edibility;
+
+    // Färgar statusen gul, grön eller röd, övriga statusar får ingen färg.
     // "oätlig" kontrolleras först eftersom ordet också innehåller "ätlig"
+    const status = edibilityStatus.toLowerCase();
     if (status.includes("oätlig")) {
-        contentElements[3].classList.add("yellow");
+        edibilityElement.classList.add("yellow");
     } else if (status.includes("ätlig")) {
-        contentElements[3].classList.add("green");
+        edibilityElement.classList.add("green");
     } else if (status.includes("giftig")) {
-        contentElements[3].classList.add("red");
+        edibilityElement.classList.add("red");
     }
 
-    contentElements[4].textContent = beskrivning;
-    contentElements[5].textContent = fyndplats;
-    // Svenska namnet används som id när svampen sparas i localStorage
-    contentElements[6].dataset.svampId = svenskt_namn;
+    // Svenska namnet används som id för svampen i localStorage
+    article.querySelector(":scope > button").dataset.svampId = svenskt_namn;
 
     mushroomList.appendChild(listElement);
     return listElement;

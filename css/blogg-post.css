@@ -1,0 +1,99 @@
+/* Stilar för blogg-post.html, ett enskilt inlägg med kommentarer. Bygger vidare på blogg.css. */
+
+/* Inlägget tar hela bredden, inte sida vid sida som på blogg.html */
+main {
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 1em;
+}
+
+/* Rubrik och datum överst, sedan användare, text och kommentarer */
+.main-post h2 {
+    grid-area: title;
+    margin-bottom: 0;
+    margin-left: 0.5em;
+}
+
+.main-post {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-areas:
+        "title      date"
+        "user       user"
+        "content    content"
+        "comments   comments";
+    align-items: baseline;
+    gap: 0.3em 1em;
+    padding: 1em 1.2em;
+}
+
+/* Användarnamnen i kursiv grå text */
+.main-post > .username {
+    grid-area: user;
+    color: var(--text-gra);
+    font-weight: bold;
+    font-style: italic;
+}
+
+.main-post > .content {
+    grid-area: content;
+}
+
+.main-post > .date {
+    grid-area: date;
+    white-space: nowrap;
+    color: var(--text-gra);
+    font-size: 0.9em;
+}
+
+/* Kommentarerna ligger inuti inlägget, så ingen egen ruta */
+.main-post .comments {
+    grid-area: comments;
+    width: auto;
+    margin-top: 1.5em;
+    background: none;
+    border: none;
+    border-top: 1px solid var(--kant);
+    border-radius: 0;
+}
+
+/* Kommentarerna som en lista utan punkter */
+.comments ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+}
+
+.comments article {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-areas:
+        "user       date"
+        "content    content";
+    align-items: baseline;
+    gap: 0.3em 1em;
+}
+
+.comments article > * {
+    margin: 0;
+}
+
+.comments article .user {
+    grid-area: user;
+    color: var(--text-gra);
+    font-weight: bold;
+    font-style: italic;
+}
+
+.comments article .content {
+    grid-area: content;
+}
+
+.comments article .date {
+    grid-area: date;
+    white-space: nowrap;
+    color: var(--text-gra);
+    font-size: 0.9em;
+}
