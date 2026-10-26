@@ -31,7 +31,7 @@ async function fetchData() {
     }
 }
 
-// SKapar och visar alla jämförelser
+// Skapar och visar alla jämförelser
 function displayComparisons(comparisons, mushrooms) {
     const comparisonList = document.getElementById("jamforelselista");
     comparisonList.textContent = "";
@@ -58,7 +58,7 @@ function createComparisonElement(comparison, mushrooms) {
     risk.className = "risk";
 
     const riskLevel = comparison.risk.split(" – ")[0];
-    riskSummary.textContent = "Risk: "+riskLevel;
+    riskSummary.textContent = "Risk: " + riskLevel;
 
     const riskDescription = comparison.risk;
     riskText.textContent = riskDescription;
@@ -78,7 +78,7 @@ function createComparisonElement(comparison, mushrooms) {
     // Använder funktionerna för att skapa bilderna och punktlistan
     const imageContainer = createMushroomImages(comparison, mushrooms);
     const featureList = createFeatureList(comparison.särskiljande);
-    
+
     // Samlar bilderna och punktlistan i en gemensam div
     const content = document.createElement("div");
     content.className = "jamforelse-innehall";
@@ -128,10 +128,11 @@ function createFeatureList(features) {
         const listItem = document.createElement("li");
         listItem.textContent = feature;
 
-        listItem.appendChild(listItem);
+        featureList.appendChild(listItem);
     });
 
     return featureList;
 }
+
 // Startar sidan när den har laddats
 window.onload = init;

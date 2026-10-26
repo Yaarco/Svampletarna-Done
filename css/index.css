@@ -1,9 +1,9 @@
-/* Lägger en mörk toning över bakgrundsbilden i headerns div så att texten ska synas tydligare */
-header>div {
-    background-image: linear-gradient(90deg, rgb(0 0 0 / 0.6) 100%, transparent), url("../img/alla-svampar-bakgrund.jpg");
+/* Sätter startsidans bakgrundsbild i heron, den mörka toningen läggs på i global.css */
+.hero {
+    --hero-bild: url("../img/alla-svampar-bakgrund.jpg");
 }
 
-/* Visar svamparna i en kolumn med mellanrum mellan dem */
+/* Ger mellanrum mellan svampkorten */
 .svamp-lista>ul {
     gap: 1.5em;
 }
