@@ -32,14 +32,13 @@ html {
 
 nav {
     padding: 0 1em;
-    column-gap: 1em;
     background-color: #faf8f0;
 }
 
 nav>ul>li>a[aria-current="page"] {
     color: #2f5d34;
     font-weight: bold;
-    border-bottom-color: #2f5d34;
+    border-bottom: 2px solid green;
 }
 
 main {
@@ -76,17 +75,15 @@ nav>ul>li{
 }
 
 nav>ul>li>a {
+    display: block;
     color: inherit;
     text-decoration: none;
     font-size: 0.9em;
     padding-block: 1em;
 }
 
-nav>ul>li>a[aria-current] {
-    border-bottom: 2px solid green;
-}
-
 nav>ul>li>a>img {
+    display: block;
     max-height: 50px;
 }
 
@@ -275,16 +272,21 @@ details>p {
     .hero {
         padding: 4em 2em;
     }
-    nav {
+    nav>ul {
         flex-wrap: wrap;
         justify-content: center;
     }
 
-    nav>ul>li>a:nth-child(1) {
-        text-align: center;
+    nav>ul>li:first-child {
         flex-basis: 100%;
+        margin-right: 0;
         /* loggan tar hela övre raden, övriga länkar hamnar under */
     }
+
+    nav>ul>li:first-child img{
+        margin-inline: auto;
+    }
+
     .hero h1 {
         font-size: 2.5em;
     }
@@ -298,7 +300,6 @@ details>p {
 
     nav {
         padding: 0 2em;
-        column-gap: 2em;
         border-radius: 10px 10px 0 0;
     }
 
