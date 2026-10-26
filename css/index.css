@@ -1,11 +1,19 @@
-.hero {
-    --hero-bild: url("../img/alla-svampar-bakgrund.jpg");
+/* Lägger en mörk toning över bakgrundsbilden i headerns div så att texten ska synas tydligare */
+header>div {
+    background-image: linear-gradient(90deg, rgb(0 0 0 / 0.6) 100%, transparent), url("../img/alla-svampar-bakgrund.jpg");
 }
 
+/* Visar svamparna i en kolumn med mellanrum mellan dem */
 .svamp-lista>ul {
     gap: 1.5em;
 }
 
+/* Ger varje svampkort en ljus bakgrundsfärg */
+.svamp-lista>ul>li {
+    background-color: #faf8f0;
+}
+
+/* Placerar knappen längst ner i svampkortet och ger den grön färg, vit text och utrymme runt texten */
 .svamp-lista .btn-find {
     margin-top: auto;
     padding: 0.7em;
@@ -14,16 +22,19 @@
     color: #fff;
 }
 
+/* Gör knappen mörkare när muspekaren hålls över den */
 .svamp-lista .btn-find:hover {
     background-color: #244728;
 }
 
+/* Visar svamparna i två lika breda kolumner när fönstret är minst 600px brett */
 @media (min-width: 600px) {
     .svamp-lista>ul {
         grid-template-columns: repeat(2, 1fr);
     }
 }
 
+/* Visar svamparna i tre lika breda kolumner när fönstret är minst 900px brett */
 @media (min-width: 900px) {
     .svamp-lista>ul {
         grid-template-columns: repeat(3, 1fr);
