@@ -31,18 +31,18 @@ html {
     background-color: #294522;
 }
 
-/* Navigeringen lägger logga och länkar på en rad */
+/* Lägger till padding bakgrundfärg på navigeringsfältet */
 nav {
-    padding: 0 1em;
+    padding: 0 2em;
     background-color: #faf8f0;
 }
-
+/* Markerar länken till sidan man är på med grön fet text och en linje under */
 nav>ul>li>a[aria-current="page"] {
     color: #2f5d34;
     font-weight: bold;
     border-bottom: 2px solid green;
 }
-
+/* Huvudinnehållet*/
 main {
     flex-grow: 1;
     /* Gör så att huvudinnehållet fyller ut allt ledigt utrymme mellan header och footer */
@@ -64,7 +64,7 @@ footer {
     text-align: center;
     padding: 1em;
 }
-
+/*Ställer in layouten för länkarna*/
 nav>ul {
     width: 100%;
     display: flex;
@@ -73,11 +73,11 @@ nav>ul {
     column-gap: 2em;
     padding: 0 2em;
 }
-
+/*Tar bort dekorationen som kommer med listelement*/
 nav>ul>li{
     list-style: none;
 }
-
+/*Gör varje länk till ett block och ändrar typografin*/
 nav>ul>li>a {
     display: block;
     color: inherit;
@@ -85,7 +85,7 @@ nav>ul>li>a {
     font-size: 0.9em;
     padding-block: 1em;
 }
-
+/*Begränsar loggans höjd samt gör den till ett block*/
 nav>ul>li>a>img {
     display: block;
     max-height: 50px;
