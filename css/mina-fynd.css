@@ -1,5 +1,6 @@
-header>div {
-    background-image: linear-gradient(90deg, rgb(0 0 0 / 0.6) 100%, transparent), url("../img/mina-fynd-bakgrund.jpg");
+/* Sätter sidans bakgrundsbild i heron, den mörka toningen läggs på i global.css */
+.hero {
+    --hero-bild: url("../img/mina-fynd-bakgrund.jpg");
 }
 
 /* Rutan med antal fynd och "Rensa alla fynd" */
@@ -14,15 +15,11 @@ main>div {
     font-weight: bold;
 }
 
+/* Röda knappar med vit text för att visa att de tar bort fynd */
 main button {
     color: #fff;
     border: none;
     background-color: #a52222;
-}
-
-section>ul {
-    grid-template-columns: 1fr;
-    /* En svamp per rad */
 }
 
 /* Bild till vänster, text i mitten, knapp till höger */
@@ -35,38 +32,37 @@ article {
     padding: 0.8em;
 }
 
+/* Lägger all text i mittenkolumnen */
 article> :not(img) {
     margin-inline: 0;
     grid-column: 2;
 }
 
+/* Gör bilden kvadratisk och låter den sträcka sig över textraderna */
 article>img {
     grid-row: 1 / 5;
     aspect-ratio: 1;
     border-radius: 6px;
 }
 
+/* Lägger knappen i högra kolumnen, i höjd med texten */
 article>button {
     grid-column: 3;
     grid-row: 1 / 5;
 }
 
+/* På små skärmar hamnar allt under varandra och bild och knapp blir fullbreda */
 @media (max-width: 600px) {
     article {
         display: flex;
         align-items: flex-start;
     }
-    article > button {
-        width: 100%;
-    }
-    article > img {
-        width: 100%;
-        display: block;
-    }
 
     article>button {
-        grid-column: 2;
-        grid-row: auto;
-        justify-self: start;
+        width: 100%;
+    }
+
+    article>img {
+        width: 100%;
     }
 }

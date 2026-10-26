@@ -1,19 +1,19 @@
+/* Hämtar typsnittet Concert One från Google Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Concert+One&display=swap');
 
+/* Rubrikerna använder typsnittet Concert One */
 h1 {
-      font-family: "Concert One", sans-serif;
+    font-family: "Concert One", sans-serif;
 }
 
-.hero p {
-    text-shadow: 1px 1px 4px #000;
-}
-
+/* Nollställer webbläsarens standardmarginaler och gör att padding och kant räknas in i bredden */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+/* Sidan är högst 1200px bred och centrerad, flex i kolumn gör att footern hamnar längst ner */
 body {
     display: flex;
     border-radius: 10px;
@@ -26,10 +26,12 @@ body {
     margin: 0 auto;
 }
 
+/* Mörkgrön bakgrund som syns runt sidan på breda skärmar */
 html {
     background-color: #294522;
 }
 
+/* Navigeringen lägger logga och länkar på en rad */
 nav {
     padding: 0 1em;
     background-color: #faf8f0;
@@ -47,6 +49,7 @@ main {
     padding: 2em 1em;
 }
 
+/* Grundutseende för alla knappar */
 button {
     font-size: 0.85em;
     padding: 0.4em 0.8em;
@@ -56,6 +59,7 @@ button {
     cursor: pointer;
 }
 
+/* Centrerad text i sidfoten */
 footer {
     text-align: center;
     padding: 1em;
@@ -89,59 +93,53 @@ nav>ul>li>a>img {
 
 nav>ul>li:nth-child(1) {
     margin-right: auto;
-    /* Skjuter all efterföljande nav-innehåll åt höger genom att ta upp all ledig marginal */
+    /* Skjuter allt efterföljande nav-innehåll åt höger genom att ta upp all ledig marginal */
 }
 
-header>div {
-    padding: 6em 2em;
-    width: 100%;
-    color: #fff;
-    background: #2f5d34 center / cover;
-}
-
-header>div>h1 {
-    font-size: 3em;
-}
-
+/* Svamplistan visas som ett rutnät utan punkter */
 section>ul {
     display: grid;
-    /* Skapar ett responsivt rutnät: kolumnerna är minst 190px och delar på resterande utrymme (1fr) */
-    grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+    /* En svamp per rad som standard, index.css lägger till fler kolumner på större skärmar */
+    grid-template-columns: 1fr;
     gap: 10px;
     list-style: none;
 }
 
+/* Varje svampkort får ljus bakgrund, tunn kant och rundade hörn */
 section>ul>li {
-    background-color: #fff;
+    background-color: #faf8f0;
     border: 1px solid #e4dfd2;
     border-radius: 8px;
     overflow: hidden;
     /* Gör så att bilden följer de rundade hörnen */
 }
 
+/* Innehållet i kortet läggs under varandra och kortet fyller hela höjden i rutnätet */
 article {
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
     height: 100%;
-    gap: 0.3em;
-    padding-bottom: 0.8em;
+    gap: 0.5em;
+    padding-bottom: 1em;
 }
 
-
+/* Ger allt förutom bilden luft till vänster och höger, bilden går kant i kant */
 article> :not(img) {
     margin-inline: 0.8em;
 }
 
+/* Det latinska namnet visas i kursiv grå text */
 article>p:nth-of-type(1) {
     font-style: italic;
     color: #666;
 }
 
+/* Fyndplatsen trycks ner till botten av kortet så att den hamnar i samma höjd på alla kort */
 article>p:nth-child(6) {
     margin-top: auto;
 }
 
+/* Bilden fyller kortets bredd */
 article>img {
     width: 100%;
     height: auto;
@@ -159,17 +157,17 @@ article>img {
     gap: 0.3em;
 }
 
+/* Istället för att skapa en svg för varje element visas platsikonen som bakgrundsbild i ett pseudoelement.
+   Ikonen har samma färg som texten (#2b2b2b, skrivs som %232b2b2b i svg url) */
 .location::before {
     content: "";
     flex-shrink: 0;
     width: 1em;
     height: 1em;
-    background-color: currentColor;
-    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7zm0 9.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5z'/%3E%3C/svg%3E") no-repeat center / contain;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%232b2b2b' d='M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7zm0 9.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5z'/%3E%3C/svg%3E") no-repeat center / contain;
 }
 
-/*Istället för att skapa en svg för varje element, gör detta ett pseudoelement och visar location ikonen i den.*/
-
+/* Gemensamt utseende för ätbarhets- och riskrutorna, färgerna sätts längre ner */
 .green,
 .yellow,
 .red {
@@ -192,6 +190,7 @@ summary {
     cursor: pointer;
 }
 
+/* Ritar ett "?" i en rund ring efter statusen */
 summary::after {
     content: "?";
     display: grid;
@@ -203,67 +202,74 @@ summary::after {
     font-size: 1em;
 }
 
+/* Byter "?" mot "×" när rutan är öppen */
 details[open] summary::after {
     content: "×";
 }
 
+/* Den fullständiga texten som visas när rutan öppnas */
 details>p {
     font-size: 1.1em;
     margin: 0.3em 0 0;
     font-weight: normal;
 }
 
+/* Grön för ätliga svampar och låg risk */
 .green {
     background-color: #d1edc5;
-    border-color: #d1edc5;
     color: #2f5d34;
 }
 
+/* Gul för oätliga svampar */
 .yellow {
     background-color: #f8edb5;
-    border-color: #f8edb5;
     color: #665414;
 }
 
+/* Röd för giftiga svampar och hög risk */
 .red {
     background-color: #ffd3ce;
-    border-color: #ffd3ce;
     color: #a52222;
 }
 
-.svamp-lista article {
-    justify-content: flex-start;
-    gap: 0.5em;
-    padding-bottom: 1em;
-}
-
-.svamp-lista article > img {
+/* Lite avstånd mellan bilden och namnet */
+.svamp-lista article>img {
     margin-bottom: 0.3em;
 }
 
+/* Storlek på svampens svenska namn */
 .svamp-lista h3 {
     font-size: 1.25em;
 }
 
+/* Mer radavstånd så att texten blir lättare att läsa */
 .svamp-lista p {
     line-height: 1.4;
 }
+
+/* Heron har vit text och en mörk toning över bakgrundsbilden så att texten syns tydligt.
+   Varje sida sätter sin egen bakgrundsbild med --hero-bild */
 .hero {
     padding: 3em 1.5em;
+    color: #ffffff;
+    background-image: linear-gradient(rgb(0 0 0 / 0.6), rgb(0 0 0 / 0.6)), var(--hero-bild);
+    background-position: center bottom;
 }
 
+/* Sidans huvudrubrik i heron */
 .hero h1 {
     font-size: 2.5em;
     margin-bottom: 0.2em;
 }
 
+/* Begränsar textens bredd så att raderna inte blir för långa */
 .hero p {
     max-width: 480px;
     font-size: 1.1em;
     line-height: 1.5;
 }
 
-
+/* På små skärmar: mer luft och navigeringen bryts till två rader */
 @media (max-width: 600px) {
     main {
         padding: 3em 2em;
@@ -292,7 +298,7 @@ details>p {
     }
 }
 
-/* Tre kolumner på större skärmar */
+/* Mer luft runt sidan och större text i heron på större skärmar */
 @media (min-width: 900px) {
     body {
         margin: 2em auto;

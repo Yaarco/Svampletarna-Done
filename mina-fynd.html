@@ -1,12 +1,12 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="sv">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mina fynd</title>
-    <link rel="stylesheet" href="/css/global.css" />
-    <link rel="stylesheet" href="/css/mina-fynd.css" />
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/mina-fynd.css">
     <script src="js/script.js" defer></script>
     <script src="js/mina-fynd.js" defer></script>
 </head>
@@ -39,22 +39,25 @@
             <button type="button" id="clear-history-btn">Rensa alla fynd</button>
         </div>
         <section class="svamp-lista">
+            <h2>Svamplista</h2>
             <ul>
-                <li id="placeholder">
-                    <article>
-                        <!-- placeholder svamp-->
-                        <img />
-                        <h3>Exempelnamn svenska</h3>
-                        <p>Exempelnamn latin</p>
-                        <details>
-                            <summary>Ätlig</summary>
-                            <p>Ätbarhet</p>
-                        </details>
-                        <p>Beskrivning</p>
-                        <p class="location">Fyndplats</p>
-                        <button type="button" class="remove-mushroom-btn">Ta bort</button>
-                    </article>
-                </li>
+                <template>
+                    <li>
+                        <article>
+                            <!-- placeholder svamp-->
+                            <img src="img/exempelsvamp.jpg" alt="Exempelsvamp">
+                            <h3>Exempelnamn svenska</h3>
+                            <p>Exempelnamn latin</p>
+                            <details>
+                                <summary>Ätlig</summary>
+                                <p>Ätbarhet</p>
+                            </details>
+                            <p>Beskrivning</p>
+                            <p class="location">Fyndplats</p>
+                            <button type="button" class="remove-mushroom-btn">Ta bort</button>
+                        </article>
+                    </li>
+                </template>
             </ul>
         </section>
     </main>
