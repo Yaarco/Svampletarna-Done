@@ -134,16 +134,15 @@ article>img {
     gap: 0.3em;
 }
 
+/* Istället för att skapa en svg för varje element visas platsikonen som bakgrundsbild i ett pseudoelement.
+   Ikonen har samma färg som texten (#2b2b2b, skrivs som %232b2b2b i svg url) */
 .location::before {
     content: "";
     flex-shrink: 0;
     width: 1em;
     height: 1em;
-    background-color: currentColor;
-    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7zm0 9.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5z'/%3E%3C/svg%3E") no-repeat center / contain;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%232b2b2b' d='M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7zm0 9.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5z'/%3E%3C/svg%3E") no-repeat center / contain;
 }
-
-/*Istället för att skapa en svg för varje element, gör detta ett pseudoelement och visar location ikonen i den.*/
 
 .green,
 .yellow,
@@ -256,7 +255,7 @@ details>p {
     }
 }
 
-/* Tre kolumner på större skärmar */
+/* Mer luft runt sidan och större text i heron på större skärmar */
 @media (min-width: 900px) {
     body {
         margin: 2em auto;
