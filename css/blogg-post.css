@@ -85,6 +85,7 @@ main {
         "content    content";
     align-items: baseline;
     gap: 0.3em 1em;
+    padding: 0.6em 0.8em;
 }
 
 /* Tar bort standardmarginalerna, avståndet styrs av gap */
