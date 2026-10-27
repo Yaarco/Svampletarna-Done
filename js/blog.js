@@ -8,6 +8,7 @@ function getID(blogData) {
 }
 // Avkodar ett id från getID() och letar upp inlägget med samma titel och datum
 function idToBlogPost(id) {
+    // decoded = <titel>|datum(unix timestamp)
     const decoded = atob(id);
     const date = decoded.split("|").pop();
     const title = decoded.replace("|" + date, "");
@@ -63,7 +64,7 @@ function createPostListItem(blogPost) {
 // Skapar en kommentar på blogg-post.html: <li> användare, datum och text </li>
 function createCommentListItem(comment) {
     const listItem = newElement("li");
-    listItem.append(newElement("p", "user", "@" + comment.user), newDateElement(comment.date), newElement("p", "content", comment.content));
+    listItem.append(newElement("p", "username", "@" + comment.user), newDateElement(comment.date), newElement("p", "content", comment.content));
     return listItem;
 }
 // Alla inlägg. Läses in efter exempelinläggen ovan, så att de syns redan vid första besöket.
@@ -95,6 +96,7 @@ if (postsSection) {
             blogPosts.push(blogPost);
             localStorage.setItem("posts", JSON.stringify(blogPosts));
             postsList.append(createPostListItem(blogPost));
+            document.querySelector(".posts > p")?.remove();
             blogPostForm.reset();
         });
     }

@@ -1,45 +1,40 @@
-/* Stilar för blogg.html. Används även av blogg-post.html, som har egna tillägg i blogg-post.css. */
+/* Stilar för blogg.html. Används även av blogg-post.html, som har egna tillägg i blogg-post.css.
+   Mobil: formuläret och inläggen under varandra. Dator: inläggen till vänster och formuläret till höger. */
 
 /* Bakgrundsbild i hero-rutan */
 .hero {
     --hero-bild: url("../img/alla-svampar-bakgrund.jpg");
 }
 
-/* Mobil: formuläret och inläggen under varandra */
+/* Formuläret och inläggen under varandra */
 main {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: 3em;
+    gap: 1em;
 }
 
 /* Ljusa rutor runt formuläret, inläggslistan och inlägget på blogg-post.html */
-section,
-.main-post {
+main > section,
+main > article {
     width: 100%;
+    padding: 0.8em;
     background-color: var(--yta);
     border: 1px solid var(--kant);
     border-radius: 8px;
-    padding: 1.5em;
 }
 
-/* Rubriker och länkar i samma stil som resten av sajten */
+/* Rubrikerna i samma stil som resten av sajten */
 h2 {
+    margin-bottom: 0.8em;
     font-family: "Concert One", sans-serif;
     color: var(--gron);
-    margin-bottom: 0.8em;
-}
-
-/* Länkarna i inläggslistan ser ut som vanlig text, hela kortet är klickbart */
-a {
-    text-decoration: none;
-    color: inherit;
 }
 
 /* ---------- Formulär för att skapa inlägg ---------- */
 
 /* Etiketter och fält under varandra */
-.post-create form {
+.post-create > form {
     display: flex;
     flex-direction: column;
     gap: 0.5em;
@@ -47,10 +42,10 @@ a {
 
 /* Etiketterna i samma typsnitt som rubrikerna */
 .post-create label {
-    font-weight: bold;
     font-family: "Concert One", sans-serif;
-    letter-spacing: 0.05em;
     font-size: 1.1em;
+    font-weight: bold;
+    letter-spacing: 0.05em;
 }
 
 /* Luft ovanför varje etikett utom den första */
@@ -62,9 +57,9 @@ a {
 .post-create input,
 .post-create textarea {
     font: inherit;
+    padding: 0.4em 0.6em;
     border: 1px solid var(--gron);
     border-radius: 5px;
-    padding: 0.4em 0.6em;
     background-color: var(--yta);
 }
 
@@ -83,10 +78,10 @@ a {
 .post-create button {
     align-self: flex-start;
     margin-top: 1em;
+    font-family: "Concert One", sans-serif;
     font-size: 1.1em;
     color: var(--yta);
     background-color: var(--gron);
-    font-family: "Concert One", sans-serif;
 }
 
 /* Mörkare grön när muspekaren hålls över knappen */
@@ -96,24 +91,22 @@ a {
 
 /* ---------- Lista med inlägg ---------- */
 
-/* Inläggen under varandra */
-.posts ul {
-    list-style: none;
-    padding: 0;
+/* Inläggen under varandra. container-type gör att korten kan anpassas efter listans bredd */
+.posts > ul {
     display: flex;
     flex-direction: column;
     gap: 0.8em;
+    list-style: none;
+    container-type: inline-size;
 }
 
-/* Ett inlägg i listan: titel och datum överst, användare och antal kommentarer under.
+/* Ett inlägg i listan: titel, datum, användare och antal kommentarer under varandra.
+   När listan är bred nog hamnar datumet till höger om titeln, se @container längre ner.
    position: relative behövs för att länken ska kunna täcka hela kortet. */
 .posts article {
+    position: relative;
     display: grid;
-    grid-template-columns: 1fr auto;
-    grid-template-areas:
-        "title    date"
-        "user     user"
-        "comments comments";
+    grid-template-columns: 1fr;
     align-items: baseline;
     gap: 0.3em 1em;
     padding: 1em 1.2em;
@@ -121,17 +114,9 @@ a {
     border: 1px solid var(--kant);
     border-left: 4px solid var(--gron);
     border-radius: 6px;
-    position: relative;
     transition:
         transform 0.15s,
         box-shadow 0.15s;
-}
-
-/* Länken ligger i rubriken men täcker hela kortet */
-.posts article h3 a::after {
-    content: "";
-    position: absolute;
-    inset: 0;
 }
 
 /* Kortet lyfts lite när man pekar på det eller tabbar till länken */
@@ -142,60 +127,78 @@ a {
     box-shadow: 0 4px 10px color-mix(in srgb, var(--skugga) 15%, transparent);
 }
 
-/* Tar bort standardmarginalerna, avståndet styrs av gap */
-.posts article > * {
-    margin: 0;
-}
-
 /* Inläggets titel */
-.posts article h3 {
-    grid-area: title;
+.posts article > h3 {
     font-family: "Concert One", sans-serif;
     color: var(--gron);
     text-wrap: balance;
 }
 
+/* Länken i rubriken ser ut som vanlig text men täcker hela kortet */
+.posts h3 > a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.posts h3 > a::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+}
+
 /* Användare, datum och antal kommentarer i mindre grå text */
-.posts article p,
-.posts article time {
-    font-style: normal;
+.posts article > p,
+.posts article > time {
     font-size: 0.9em;
     color: var(--text-gra);
 }
 
-/* Användarnamnet på egen rad */
-.posts article .user {
-    grid-area: user;
-    font-weight: bold;
-}
-
-/* Datumet uppe till höger, på en rad */
-.posts article .date {
-    grid-area: date;
+/* Datumet på en rad */
+.posts article > time {
     white-space: nowrap;
 }
 
+/* Bred lista: datumet till höger om titeln i alla kort, så de hamnar på samma ställe oavsett titelns längd.
+   Användarnamnet och antal kommentarer tar hela bredden under */
+@container (min-width: 30em) {
+    .posts article {
+        grid-template-columns: 1fr auto;
+    }
+
+    .posts article > p {
+        grid-column: 1 / -1;
+    }
+}
+
+/* Användarnamnet i fetstil */
+.posts article > .user {
+    font-weight: bold;
+}
+
 /* Pratbubbla och antal kommentarer på samma rad */
-.posts article .comments {
-    grid-area: comments;
+.posts article > .comments {
     display: flex;
     align-items: center;
     gap: 0.3em;
 }
 
 /* Pratbubblan lika stor som texten */
-.posts article .comments img {
+.posts .comments > img {
     width: 1em;
     height: 1em;
 }
 
-/* Större skärmar: inläggen till vänster och formuläret till höger */
-@media (min-width: 750px) {
+/* Dator: inläggen till vänster och formuläret till höger. Inläggen får mest plats */
+@media (min-width: 900px) {
     main {
         flex-direction: row-reverse;
     }
 
+    .posts {
+        flex: 3;
+    }
+
     .post-create {
-        width: 60%;
+        flex: 2;
     }
 }

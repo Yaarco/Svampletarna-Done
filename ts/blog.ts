@@ -27,6 +27,7 @@ function getID(blogData: BlogPost) {
 
 // Avkodar ett id från getID() och letar upp inlägget med samma titel och datum
 function idToBlogPost(id: string) {
+    // decoded = <titel>|datum(unix timestamp)
     const decoded = atob(id);
     const date = decoded.split("|").pop();
     const title = decoded.replace("|" + date, "");
@@ -91,7 +92,7 @@ function createPostListItem(blogPost: BlogPost) {
 function createCommentListItem(comment: BlogComment) {
     const listItem = newElement("li");
     listItem.append(
-        newElement("p", "user", "@" + comment.user),
+        newElement("p", "username", "@" + comment.user),
         newDateElement(comment.date),
         newElement("p", "content", comment.content)
     );
@@ -132,6 +133,7 @@ if (postsSection) {
             blogPosts.push(blogPost);
             localStorage.setItem("posts", JSON.stringify(blogPosts));
             postsList.append(createPostListItem(blogPost));
+            document.querySelector(".posts > p")?.remove()
             blogPostForm.reset();
         });
     } else {
