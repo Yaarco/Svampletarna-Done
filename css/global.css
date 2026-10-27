@@ -52,15 +52,27 @@ html {
     background-color: var(--gron-mork);
 }
 
-/* Navigeringen lägger logga och länkar på en rad */
-nav {
+/* Navigeringen lägger logga och länkar på en rad.
+   Vissa sidor har länkarna direkt i nav, andra i en ul, så båda varianterna stöds */
+nav,
+nav > ul {
     width: 100%;
     display: flex;
     flex-direction: row;
     align-items: center;
     column-gap: 2em;
+}
+
+nav {
     padding: 0 2em;
     background-color: var(--yta);
+}
+
+/* Listan i navigeringen ska inte ha egen luft eller punkter */
+nav > ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
 }
 
 /* Huvudinnehållet */
@@ -88,7 +100,9 @@ footer {
 }
 
 /* Navigeringslänkarna får samma färg som texten och ingen understrykning */
-nav > a {
+nav > a,
+nav > ul > li > a {
+    display: block;
     color: inherit;
     text-decoration: none;
     font-size: 0.9em;
@@ -96,19 +110,23 @@ nav > a {
 }
 
 /* Markerar länken till sidan man är på med grön fet text och en linje under */
-nav > a[aria-current="page"] {
+nav > a[aria-current="page"],
+nav > ul > li > a[aria-current="page"] {
     color: var(--gron);
     font-weight: bold;
     border-bottom: 2px solid var(--gron);
 }
 
 /* Begränsar loggans höjd */
-nav > a > img {
+nav > a > img,
+nav > ul > li > a > img {
+    display: block;
     max-height: 50px;
 }
 
 /* Loggan längst till vänster, övriga länkar till höger */
-nav > a:nth-child(1) {
+nav > a:nth-child(1),
+nav > ul > li:nth-child(1) {
     margin-right: auto;
     /* Skjuter allt efterföljande nav-innehåll åt höger genom att ta upp all ledig marginal */
 }
@@ -132,7 +150,7 @@ section > ul > li {
 }
 
 /* Innehållet i kortet läggs under varandra och kortet fyller hela höjden i rutnätet */
-article {
+section > ul article {
     display: flex;
     flex-direction: column;
     height: 100%;
@@ -141,23 +159,23 @@ article {
 }
 
 /* Ger allt förutom bilden luft till vänster och höger, bilden går kant i kant */
-article > :not(img) {
+section > ul article > :not(img) {
     margin-inline: 0.8em;
 }
 
 /* Det latinska namnet visas i kursiv grå text */
-article > p:nth-of-type(1) {
+section > ul article > p:nth-of-type(1) {
     font-style: italic;
     color: var(--text-gra);
 }
 
 /* Fyndplatsen trycks ner till botten av kortet så att den hamnar i samma höjd på alla kort */
-article > p:nth-child(6) {
+section > ul article > p:nth-child(6) {
     margin-top: auto;
 }
 
 /* Bilden fyller kortets bredd */
-article > img {
+section > ul article > img {
     width: 100%;
     height: auto;
     aspect-ratio: 4 / 3;
@@ -202,13 +220,15 @@ article > img {
 /* Ätbarhet: statusen syns, "?" öppnar hela texten */
 summary {
     display: flex;
-    text-align: center;
+    text-align: start;
     align-items: center;
-    justify-content: center;
+    justify-content: start;
     gap: 0.4em;
     font-size: 1.2em;
     list-style: none;
     cursor: pointer;
+    /* Klickytan ska vara minst 24 px hög (WCAG 2.5.8) */
+    min-height: 24px;
 }
 
 /* Ritar ett "?" i en rund ring efter statusen */
@@ -293,22 +313,31 @@ details > p {
 /* På små skärmar: mer luft och navigeringen bryts till två rader */
 @media (max-width: 600px) {
     main {
-        padding: 3em 2em;
+        padding: 1em 0.8em;
     }
 
     .hero {
         padding: 4em 2em;
     }
 
-    nav {
-        flex-wrap: wrap;
+    nav,
+    nav > ul {
+        flex-direction: column;
         justify-content: center;
     }
 
-    nav > a:nth-child(1) {
+    nav > a:nth-child(1),
+    nav > ul > li:nth-child(1) {
+        margin-right: 0;
         text-align: center;
         flex-basis: 100%;
         /* loggan tar hela övre raden, övriga länkar hamnar under */
+    }
+
+    /* Centrerar loggan eftersom bilden är ett block */
+    nav > a > img,
+    nav > ul > li > a > img {
+        margin-inline: auto;
     }
 }
 

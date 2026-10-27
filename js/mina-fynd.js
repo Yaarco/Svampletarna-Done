@@ -44,7 +44,7 @@ async function init() {
 
     clearHistoryBtn.addEventListener("click", e => {
         localStorage.removeItem("mushrooms");
-        document.querySelector("ul").innerHTML = "";
+        document.querySelector(".svamp-lista > ul").innerHTML = "";
 
         changeAmount(0);
     });
