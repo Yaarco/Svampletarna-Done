@@ -18,7 +18,7 @@ function createMushroomElement({
     const contentElements = listElement.firstElementChild.children;
 
     // Byter "./" i bildens sökväg till vår bildmapp
-    contentElements[0].src = bild.replace("./", "img/");
+    contentElements[0].src = bild.replace("./", "./img/");
     contentElements[0].alt = svenskt_namn;
     contentElements[1].textContent = svenskt_namn;
     contentElements[2].textContent = latinskt_namn;

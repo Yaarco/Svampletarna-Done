@@ -31,7 +31,7 @@ if (loginForm) {
         const password = loginForm.password.value;
         if (username === USERNAME && password === PASSWORD) {
             localStorage.setItem("username", username);
-            location.href = "index.html";
+            location.href = "./index.html";
         } else {
             // Stycket har role="alert" så att skärmläsare läser upp felet direkt
             errorText.textContent = "Fel användarnamn eller lösenord";
@@ -47,12 +47,12 @@ if (loginForm) {
 
 // På alla sidor: byter texten "Logga in" i menyn mot användarnamnet och en ikon
 if (storedUser === USERNAME) {
-    const loginLink = document.querySelector('nav > a[href="login.html"]');
+    const loginLink = document.querySelector('nav a[href="./login.html"]');
     loginLink.textContent = storedUser + " ";
 
     // Ikonen är dekorativ, namnet står redan i länken. Storleken sätts här eftersom global.css inte har någon regel för den.
     const userIcon = document.createElement("img");
-    userIcon.src = "img/user.svg";
+    userIcon.src = "./img/user.svg";
     userIcon.alt = "";
     userIcon.width = 18;
     userIcon.height = 18;

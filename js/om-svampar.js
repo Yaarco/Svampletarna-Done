@@ -6,8 +6,8 @@ function init() {
 // Hämtar informationen från JSON-filerna
 async function fetchData() {
     try {
-        const comparisonResponse = await fetch("json/speciellaEgenskaper.json");
-        const mushroomsResponse = await fetch("json/svampar.json");
+        const comparisonResponse = await fetch("./json/speciellaEgenskaper.json");
+        const mushroomsResponse = await fetch("./json/svampar.json");
 
         // Kontrollerar att båda filerna kunde hämtas
         if (!comparisonResponse.ok || !mushroomsResponse.ok) {
@@ -105,7 +105,7 @@ function createMushroomImages(comparison, mushrooms) {
             const image = document.createElement("img");
 
             // Byter "./" i bildens sökväg till vår bildmapp
-            image.src = mushroom.bild.replace("./", "img/");
+            image.src = mushroom.bild.replace("./", "./img/");
             image.alt = mushroom.svenskt_namn;
 
             const caption = document.createElement("figcaption");
