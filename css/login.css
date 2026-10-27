@@ -1,4 +1,4 @@
-/* Stilar för login.html */
+/* Stilar för login.html. Samma utseende på alla skärmstorlekar, allt centreras i en kolumn. */
 
 /* Bakgrundsbild i hero-rutan */
 .hero {
@@ -23,9 +23,9 @@ main > section:not([hidden]) {
 
 /* Felmeddelandet ovanför formuläret. Höjden är fast så att formuläret inte hoppar när texten visas */
 main > div > p {
+    height: 1.5em;
     color: var(--rod);
     font-weight: bold;
-    height: 1.5em;
 }
 
 /* ---------- Formulär ---------- */
@@ -35,15 +35,14 @@ form {
     display: flex;
     flex-direction: column;
     gap: 0.5em;
-    width: fit-content;
 }
 
 /* Etiketterna i samma typsnitt som rubrikerna */
 label {
-    font-weight: bold;
     font-family: "Concert One", sans-serif;
-    letter-spacing: 0.05em;
     font-size: 1.2em;
+    font-weight: bold;
+    letter-spacing: 0.05em;
 }
 
 /* Luft ovanför varje etikett utom den första */
@@ -53,24 +52,29 @@ input + label {
 
 /* Fälten får en grön kant */
 input {
+    padding: 0.3em 0.5em;
     border: 1px solid var(--gron);
     border-radius: 5px;
-    padding: 0.3em 0.5em;
 }
 
-/* Logga in-knappen */
-form button {
+/* Logga in-knappen, kant och form kommer från global.css */
+form > button {
+    font-family: "Concert One", sans-serif;
     font-size: 1.2em;
-    padding: 0.4em 0.8em;
-    border: 1px solid var(--kant);
-    border-radius: 6px;
     color: var(--yta);
     background-color: var(--gron);
-    font-family: "Concert One", sans-serif;
 }
 
-/* Knappen "Logga ut" i välkomstrutan */
-main > section button {
+/* ---------- Välkomstrutan ---------- */
+
+/* Länken till bloggen. Padding ger en klickyta på minst 24 px (WCAG 2.5.8). */
+main > section > a {
+    display: inline-block;
+    padding-block: 0.2em;
+}
+
+/* Knappen "Logga ut" */
+main > section > button {
     font-size: 1.2em;
     color: var(--yta);
     border: none;

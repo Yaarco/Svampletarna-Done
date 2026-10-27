@@ -1,3 +1,6 @@
+/* Stilar för mina-fynd.html. Svampkorten har sitt grundutseende i global.css.
+   Mobil: korten ser ut som på startsidan, bild överst och allt under varandra. */
+
 /* Sätter sidans bakgrundsbild i heron, den mörka toningen läggs på i global.css */
 .hero {
     --hero-bild: url("../img/mina-fynd-bakgrund.jpg");
@@ -8,6 +11,7 @@ main > div {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 1em;
     padding: 1em;
     margin-bottom: 1em;
     border-radius: 8px;
@@ -22,47 +26,33 @@ main button {
     background-color: var(--rod);
 }
 
-/* Bild till vänster, text i mitten, knapp till höger */
-article {
-    display: grid;
-    grid-template-columns: 100px 1fr auto;
-    align-items: center;
-    column-gap: 1em;
-    row-gap: 0.2em;
-    padding: 0.8em;
-}
-
-/* Lägger all text i mittenkolumnen */
-article > :not(img) {
-    margin-inline: 0;
-    grid-column: 2;
-}
-
-/* Gör bilden kvadratisk och låter den sträcka sig över textraderna */
-article > img {
-    grid-row: 1 / 5;
-    aspect-ratio: 1;
-    border-radius: 6px;
-}
-
-/* Lägger knappen i högra kolumnen, i höjd med texten */
-article > button {
-    grid-column: 3;
-    grid-row: 1 / 5;
-}
-
-/* På små skärmar hamnar allt under varandra och bild och knapp blir fullbreda */
-@media (max-width: 600px) {
-    article {
-        display: flex;
-        align-items: flex-start;
+/* Surfplatta och dator: ett brett kort per rad med bild till vänster, text i mitten och knapp till höger */
+@media (min-width: 600px) {
+    .svamp-lista article {
+        display: grid;
+        grid-template-columns: 100px 1fr auto;
+        align-items: center;
+        gap: 0.2em 1em;
+        padding: 0.8em;
     }
 
-    article > button {
-        width: 100%;
+    /* All text i mittenkolumnen */
+    .svamp-lista article > :not(img) {
+        margin: 0;
+        grid-column: 2;
     }
 
-    article > img {
-        width: 100%;
+    /* Bilden blir kvadratisk och sträcker sig över de fem textraderna */
+    .svamp-lista article > img {
+        grid-row: 1 / 6;
+        aspect-ratio: 1;
+        margin: 0;
+        border-radius: 6px;
+    }
+
+    /* Knappen i högra kolumnen, i höjd med texten */
+    .svamp-lista article > button {
+        grid-column: 3;
+        grid-row: 1 / 6;
     }
 }
