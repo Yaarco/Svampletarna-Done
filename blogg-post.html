@@ -5,25 +5,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Svampbloggen</title>
-    <link rel="stylesheet" href="css/global.css">
-    <link rel="stylesheet" href="css/blogg.css">
-    <link rel="stylesheet" href="css/blogg-post.css">
-    <script src="js/auth.js" defer></script>
-    <script src="js/blog.js" defer></script>
-    <script src="js/blog-post.js" defer></script>
+    <link rel="stylesheet" href="./css/global.css">
+    <link rel="stylesheet" href="./css/blogg.css">
+    <link rel="stylesheet" href="./css/blogg-post.css">
+    <script src="./js/auth.js" defer></script>
+    <script src="./js/blog.js" defer></script>
+    <script src="./js/blog-post.js" defer></script>
 </head>
 
 <body>
     <header>
         <nav>
-            <a href="index.html">
-                <img class="logo" src="img/svampletarna-logo.png" alt="Svampletarna logotype">
-            </a>
-            <a href="index.html">Alla svampar</a>
-            <a href="mina-fynd.html">Mina fynd</a>
-            <a href="om-svampar.html">Om svampar</a>
-            <a href="blogg.html" aria-current="true">Blogg</a>
-            <a href="login.html">Logga in</a>
+            <ul>
+                <li>
+                    <a href="./index.html">
+                        <img class="logo" src="./img/svampletarna-logo.png" alt="Svampletarna logotype">
+                    </a>
+                </li>
+                <li><a href="./index.html">Alla svampar</a></li>
+                <li><a href="./mina-fynd.html">Mina fynd</a></li>
+                <li><a href="./om-svampar.html">Om svampar</a></li>
+                <li><a href="./blogg.html" aria-current="true">Blogg</a></li>
+                <li><a href="./login.html">Logga in</a></li>
+            </ul>
         </nav>
 
         <div class="hero">
@@ -36,22 +40,19 @@
             <h2 class="title">Titel</h2>
             <p class="username">@Användare</p>
             <time class="date" datetime="2026-08-14T09:32">14 aug. 09:32</time>
-            <p class="content">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Consectetur deserunt placeat non consequuntur voluptate labore sequi optio dolorum commodi laboriosam?</p>
+            <p class="content">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Consectetur deserunt placeat
+                non consequuntur voluptate labore sequi optio dolorum commodi laboriosam?</p>
 
             <section class="comments">
                 <h3>Kommentarer</h3>
-                <ul>
-                    <li>
-                        <p class="user">@Kalle</p>
-                        <time class="date" datetime="2026-08-14T12:05">14 aug. 12:05</time>
-                        <p class="content">Grymt! Tror du det finns kvar till helgen?</p>
-                    </li>
-                    <li>
-                        <p class="user">@Svampkungen</p>
-                        <time class="date" datetime="2026-08-14T13:47">14 aug. 13:47</time>
-                        <p class="content">Säkert, det kommer fler efter regnet.</p>
-                    </li>
-                </ul>
+                <!-- Byts mot en länk till inloggningen av js/blog-post.js om man inte är inloggad -->
+                <form>
+                    <label for="comment">Skriv kommentar:</label>
+                    <input type="text" name="comment" id="comment" required>
+                    <button type="submit">Publicera</button>
+                </form>
+                <!-- Kommentarerna skapas av js/blog-post.js -->
+                <ul></ul>
             </section>
         </article>
     </main>

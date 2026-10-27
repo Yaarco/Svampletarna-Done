@@ -5,22 +5,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Logga in</title>
-    <link rel="stylesheet" href="css/global.css">
-    <link rel="stylesheet" href="css/login.css">
-    <script src="js/auth.js" defer></script>
+    <link rel="stylesheet" href="./css/global.css">
+    <link rel="stylesheet" href="./css/login.css">
+    <script src="./js/auth.js" defer></script>
 </head>
 
 <body>
     <header>
         <nav>
-            <a href="index.html">
-                <img class="logo" src="img/svampletarna-logo.png" alt="Svampletarna logotype">
-            </a>
-            <a href="index.html">Alla svampar</a>
-            <a href="mina-fynd.html">Mina fynd</a>
-            <a href="om-svampar.html">Om svampar</a>
-            <a href="blogg.html">Blogg</a>
-            <a href="login.html" aria-current="page">Logga in</a>
+            <ul>
+                <li>
+                    <a href="./index.html">
+                        <img class="logo" src="./img/svampletarna-logo.png" alt="Svampletarna logotype">
+                    </a>
+                </li>
+                <li><a href="./index.html">Alla svampar</a></li>
+                <li><a href="./mina-fynd.html">Mina fynd</a></li>
+                <li><a href="./om-svampar.html">Om svampar</a></li>
+                <li><a href="./blogg.html">Blogg</a></li>
+                <li><a href="./login.html" aria-current="page">Logga in</a></li>
+            </ul>
         </nav>
 
         <div class="hero">
@@ -33,7 +37,7 @@
     <main>
         <div>
             <p role="alert"></p>
-            <form action="login.html" method="post">
+            <form action="./login.html" method="post">
                 <label for="username">Användarnamn:</label>
                 <input type="text" name="username" id="username" autocomplete="username" required>
 
@@ -44,8 +48,8 @@
             </form>
         </div>
         <section>
-            <h2>Välkommen <span>användare</span>! Du är nu inloggad.</h2>
-            <a href="blogg.html">Testa skriva ett blogginlägg</a>
+            <h2>Du är inloggad som <span> användare</span>!</h2>
+            <a href="./blogg.html">Testa skriva ett blogginlägg</a>
             <button type="button">Logga ut</button>
         </section>
     </main>
