@@ -31,18 +31,18 @@ html {
     background-color: #294522;
 }
 
-/* Navigeringen lägger logga och länkar på en rad */
+/* Lägger till padding bakgrundfärg på navigeringsfältet */
 nav {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    column-gap: 2em;
     padding: 0 2em;
     background-color: #faf8f0;
 }
-
-/* Huvudinnehållet */
+/* Markerar länken till sidan man är på med grön fet text och en linje under */
+nav>ul>li>a[aria-current="page"] {
+    color: #2f5d34;
+    font-weight: bold;
+    border-bottom: 2px solid green;
+}
+/* Huvudinnehållet*/
 main {
     flex-grow: 1;
     /* Gör så att huvudinnehållet fyller ut allt ledigt utrymme mellan header och footer */
@@ -64,29 +64,34 @@ footer {
     text-align: center;
     padding: 1em;
 }
-
-/* Navigeringslänkarna får samma färg som texten och ingen understrykning */
-nav>a {
+/*Ställer in layouten för länkarna*/
+nav>ul {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    column-gap: 2em;
+    padding: 0 2em;
+}
+/*Tar bort dekorationen som kommer med listelement*/
+nav>ul>li{
+    list-style: none;
+}
+/*Gör varje länk till ett block och ändrar typografin*/
+nav>ul>li>a {
+    display: block;
     color: inherit;
     text-decoration: none;
     font-size: 0.9em;
     padding-block: 1em;
 }
-
-/* Markerar länken till sidan man är på med grön fet text och en linje under */
-nav>a[aria-current="page"] {
-    color: #2f5d34;
-    font-weight: bold;
-    border-bottom: 2px solid #2f5d34;
-}
-
-/* Begränsar loggans höjd */
-nav>a>img {
+/*Begränsar loggans höjd samt gör den till ett block*/
+nav>ul>li>a>img {
+    display: block;
     max-height: 50px;
 }
 
-/* Loggan längst till vänster, övriga länkar till höger */
-nav>a:nth-child(1) {
+nav>ul>li:nth-child(1) {
     margin-right: auto;
     /* Skjuter allt efterföljande nav-innehåll åt höger genom att ta upp all ledig marginal */
 }
@@ -273,16 +278,23 @@ details>p {
     .hero {
         padding: 4em 2em;
     }
-
-    nav {
+    nav>ul {
         flex-wrap: wrap;
         justify-content: center;
     }
 
-    nav>a:nth-child(1) {
-        text-align: center;
+    nav>ul>li:first-child {
         flex-basis: 100%;
+        margin-right: 0;
         /* loggan tar hela övre raden, övriga länkar hamnar under */
+    }
+
+    nav>ul>li:first-child img{
+        margin-inline: auto;
+    }
+
+    .hero h1 {
+        font-size: 2.5em;
     }
 }
 
@@ -293,6 +305,7 @@ details>p {
     }
 
     nav {
+        padding: 0 2em;
         border-radius: 10px 10px 0 0;
     }
 

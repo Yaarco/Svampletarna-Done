@@ -1,7 +1,7 @@
 // Hämtar templaten för ett svampkort och listan som korten ska läggas i
 const templateEl = document.querySelector("template");
 
-const mushroomList = document.querySelector("ul");
+const mushroomList = document.querySelector(".svamp-lista > ul");
 mushroomList.removeChild(templateEl);
 
 // Skapar ett svampkort utifrån en svamp i JSON-filen, lägger till det i listan och returnerar det
