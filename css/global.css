@@ -44,7 +44,7 @@ body {
     background-color: var(--bakgrund);
     color: var(--text);
     font-family: "Nunito", sans-serif;
-    transition: margin 0.5s ease; /* Mjuka ut hoppet när body marginalen ändras vid skärmstorleks-ändring*/
+    transition: margin 0.5s ease; /* Mjukar upp hoppet när marginalen ändras vid 1200px */
 }
 
 /* Rubrikerna använder typsnittet Concert One */

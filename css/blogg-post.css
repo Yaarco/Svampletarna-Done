@@ -19,12 +19,14 @@
     gap: 0.3em;
 }
 
-.main-post>.title {
+/* Rubriken utan marginal, gap i griden ger avståndet */
+.main-post > .title {
     grid-area: title;
     margin-bottom: 0;
 }
 
-.main-post>.content {
+/* Inläggets text */
+.main-post > .content {
     grid-area: content;
 }
 
@@ -54,17 +56,18 @@
     border-top: 1px solid var(--kant);
 }
 
-.comments>h3 {
+/* Rubriken "Kommentarer" */
+.comments > h3 {
     margin-bottom: 0.5em;
 }
 
 /* Länken i texten "Logga in för att skriva en kommentar", som visas för den som inte är inloggad */
-.comments>p>a {
+.comments > p > a {
     color: var(--gron);
 }
 
 /* Kommentarerna som en lista utan siffror, äldst först */
-.comments>ol {
+.comments > ol {
     display: flex;
     flex-direction: column;
     gap: 1em;
@@ -83,7 +86,7 @@
     padding: 0.6em 0.8em;
 }
 
-/* Lägg kant mellan kommentarer*/
+/* Linje mellan kommentarerna */
 .comments li+li {
     border-top: 1px solid var(--kant);
 }
@@ -92,7 +95,7 @@
 
 /* Etiketten på egen rad, fält och knapp bredvid varandra.
    Flex gör att mellanrummet mellan taggarna i HTML:en inte syns som ett mellanslag. */
-.comments>form {
+.comments > form {
     display: flex;
     flex-wrap: wrap;
     row-gap: 0.3em;
@@ -120,7 +123,7 @@
 }
 
 /* Grön knapp som ser ut att sitta ihop med fältet */
-.comments form>button {
+.comments form > button {
     font-size: 1em;
     color: var(--yta);
     background-color: var(--gron);
@@ -129,7 +132,7 @@
 }
 
 /* Mörkare grön när muspekaren hålls över knappen */
-.comments form>button:hover {
+.comments form > button:hover {
     background-color: var(--gron-mork);
 }
 
@@ -160,7 +163,7 @@
     }
 
     /* Formuläret behöver inte vara bredare än så här */
-    .comments>form {
+    .comments > form {
         max-width: 400px;
     }
 }

@@ -49,4 +49,5 @@ function changeAmount(amount) {
     clearHistoryBtn.hidden = amount === 0;
 }
 
+// Startar sidan när den har laddats
 window.onload = init;

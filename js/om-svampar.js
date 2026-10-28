@@ -18,7 +18,6 @@ async function fetchData() {
             comparisonJSON.särskiljande_egenskaper,
             mushroomsJSON.svampar
         );
-
     } catch (error) {
         // Skriver felet i konsolen och visar ett meddelande på sidan
         console.error("Fel:", error);

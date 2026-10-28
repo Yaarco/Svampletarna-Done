@@ -47,7 +47,7 @@ if (loginForm) {
 
 // På alla sidor: byter texten "Logga in" i menyn mot användarnamnet och en ikon
 if (storedUser === USERNAME) {
-    const loginLink = document.querySelector('nav a[href="./login.html"]');
+    const loginLink = document.querySelector("nav a[href='./login.html']");
     loginLink.textContent = storedUser;
 
     // Ikonen är dekorativ, namnet står redan i länken. Storleken sätts här eftersom global.css inte har någon regel för den.
