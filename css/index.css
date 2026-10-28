@@ -1,16 +1,17 @@
+/* Stilar för index.html. Svampkorten har sitt grundutseende i global.css. */
+
 /* Sätter startsidans bakgrundsbild i heron, den mörka toningen läggs på i global.css */
 .hero {
     --hero-bild: url("../img/alla-svampar-bakgrund.jpg");
 }
 
-/* Ger mellanrum mellan svampkorten */
+/* Större mellanrum mellan svampkorten än på mina fynd */
 .svamp-lista > ul {
     gap: 1.5em;
 }
 
-/* Placerar knappen längst ner i svampkortet och ger den grön färg, vit text och utrymme runt texten */
-.svamp-lista .btn-find {
-    margin-top: auto;
+/* "Markera som hittad" längst ner i kortet, grön med vit text */
+.svamp-lista article > button {
     padding: 0.7em;
     background-color: var(--gron);
     border-color: var(--gron);
@@ -18,18 +19,18 @@
 }
 
 /* Gör knappen mörkare när muspekaren hålls över den */
-.svamp-lista .btn-find:hover {
+.svamp-lista article > button:hover {
     background-color: var(--gron-mork);
 }
 
-/* Visar svamparna i två lika breda kolumner när fönstret är minst 600px brett */
+/* Surfplatta: två lika breda kolumner */
 @media (min-width: 600px) {
     .svamp-lista > ul {
         grid-template-columns: repeat(2, 1fr);
     }
 }
 
-/* Visar svamparna i tre lika breda kolumner när fönstret är minst 900px brett */
+/* Dator: tre lika breda kolumner */
 @media (min-width: 900px) {
     .svamp-lista > ul {
         grid-template-columns: repeat(3, 1fr);

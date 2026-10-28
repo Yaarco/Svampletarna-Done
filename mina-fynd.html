@@ -5,24 +5,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mina fynd</title>
-    <link rel="stylesheet" href="css/global.css">
-    <link rel="stylesheet" href="css/mina-fynd.css">
-    <script src="js/auth.js" defer></script>
-    <script src="js/script.js" defer></script>
-    <script src="js/mina-fynd.js" defer></script>
+    <link rel="stylesheet" href="./css/global.css">
+    <link rel="stylesheet" href="./css/mina-fynd.css">
+    <script src="./js/auth.js" defer></script>
+    <script src="./js/script.js" defer></script>
+    <script src="./js/mina-fynd.js" defer></script>
 </head>
 
 <body>
     <header>
         <nav>
-            <a href="index.html">
-                <img class="logo" src="img/svampletarna-logo.png" alt="Svampletarna logotype">
-            </a>
-            <a href="index.html">Alla svampar</a>
-            <a href="mina-fynd.html" aria-current="page">Mina fynd</a>
-            <a href="om-svampar.html">Om svampar</a>
-            <a href="blogg.html">Blogg</a>
-            <a href="login.html">Logga in</a>
+            <ul>
+                <li>
+                    <a href="./index.html">
+                        <img class="logo" src="./img/svampletarna-logo.png" alt="Svampletarna, till startsidan">
+                    </a>
+                </li>
+                <li><a href="./index.html">Alla svampar</a></li>
+                <li><a href="./mina-fynd.html" aria-current="page">Mina fynd</a></li>
+                <li><a href="./om-svampar.html">Om svampar</a></li>
+                <li><a href="./blogg.html">Blogg</a></li>
+                <li><a href="./login.html">Logga in</a></li>
+            </ul>
         </nav>
 
         <div class="hero">
@@ -32,8 +36,9 @@
     </header>
     <main>
         <div>
-            <p>
-                Du har hittat <span id="amount-found">0</span> svamp<span id="text-amount-found"></span>
+            <!-- aria-live gör att skärmläsare läser upp det nya antalet när ett fynd tas bort -->
+            <p aria-live="polite">
+                Du har hittat <span id="amount-found">0</span> svamp<span id="text-amount-found">ar</span>
             </p>
             <button type="button" id="clear-history-btn">Rensa alla fynd</button>
         </div>
@@ -43,8 +48,8 @@
                 <template>
                     <li>
                         <article>
-                            <!-- placeholder svamp-->
-                            <img src="img/exempelsvamp.jpg" alt="Exempelsvamp">
+                            <!-- Mall för ett svampkort, kopieras och fylls i av js/script.js -->
+                            <img src="./img/exempelsvamp.jpg" alt="Exempelsvamp">
                             <h3>Exempelnamn svenska</h3>
                             <p>Exempelnamn latin</p>
                             <details>
@@ -52,7 +57,7 @@
                                 <p>Ätbarhet</p>
                             </details>
                             <p>Beskrivning</p>
-                            <p class="location">Fyndplats</p>
+                            <p>Fyndplats</p>
                             <button type="button" class="remove-mushroom-btn">Ta bort</button>
                         </article>
                     </li>
@@ -61,7 +66,7 @@
         </section>
     </main>
     <footer>
-        <p>Grupp 5 2026</p>
+        <p>Svampletarnas förening 2026</p>
     </footer>
 </body>
 

@@ -1,115 +1,169 @@
-/* Stilar för blogg-post.html, ett enskilt inlägg med kommentarer. Bygger vidare på blogg.css. */
+/* Stilar för blogg-post.html, ett enskilt inlägg med kommentarer. Bygger vidare på blogg.css.
+   Mobil: allt under varandra. Surfplatta och dator: datum till höger om rubriken och användarnamnet. */
 
-/* "Blogg" i menyn markeras även här. Länken har aria-current="true" eftersom inlägget inte är själva bloggsidan */
-nav > a[aria-current="true"] {
-    color: var(--gron);
-    font-weight: bold;
-    border-bottom: 2px solid var(--gron);
-}
+/* ---------- Inlägget ---------- */
 
-/* Inlägget tar hela bredden, inte sida vid sida som på blogg.html */
-main {
-    flex-direction: column;
-    justify-content: flex-start;
-    gap: 1em;
-}
-
-/* Rubrik och datum överst, sedan användare, text och kommentarer */
-.main-post h2 {
-    grid-area: title;
-    margin-bottom: 0;
-    margin-left: 0.5em;
-}
-
-/* Inlägget som rutnät: rubrik och datum överst, sedan användare, text och kommentarer */
+/* Rubrik, datum, användare, text och kommentarer under varandra.
+   minmax(0, 1fr) låter kolumnen krympa under innehållets minsta bredd (t.ex. kommentarsfältet),
+   annars blir inlägget bredare än skärmen på de smalaste mobilerna. */
 .main-post {
     display: grid;
-    grid-template-columns: 1fr auto;
+    grid-template-columns: minmax(0, 1fr);
     grid-template-areas:
-        "title      date"
-        "user       user"
-        "content    content"
-        "comments   comments";
+        "title"
+        "date"
+        "user"
+        "content"
+        "comments";
     align-items: baseline;
-    gap: 0.3em 1em;
-    padding: 1em 1.2em;
+    gap: 0.3em;
 }
 
-/* Användarnamnen i kursiv grå text */
-.main-post > .username {
-    grid-area: user;
-    color: var(--text-gra);
-    font-weight: bold;
-    font-style: italic;
+/* Rubriken utan marginal, gap i griden ger avståndet */
+.main-post > .title {
+    grid-area: title;
+    margin-bottom: 0;
 }
 
-/* Inläggets text tar hela bredden */
+/* Inläggets text */
 .main-post > .content {
     grid-area: content;
 }
 
-/* Datumet uppe till höger, på en rad */
-.main-post > .date {
-    grid-area: date;
-    white-space: nowrap;
-    color: var(--text-gra);
-    font-size: 0.9em;
-}
-
-/* Kommentarerna ligger inuti inlägget, så ingen egen ruta */
-.main-post .comments {
-    grid-area: comments;
-    width: auto;
-    margin-top: 1.5em;
-    background: none;
-    border: none;
-    border-top: 1px solid var(--kant);
-    border-radius: 0;
-}
-
-/* Kommentarerna som en lista utan punkter */
-.comments ul {
-    list-style: none;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 1em;
-}
-
-/* En kommentar: användare och datum på första raden, texten under */
-.comments li {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    grid-template-areas:
-        "user       date"
-        "content    content";
-    align-items: baseline;
-    gap: 0.3em 1em;
-    padding: 0.6em 0.8em;
-}
-
-/* Tar bort standardmarginalerna, avståndet styrs av gap */
-.comments li > * {
-    margin: 0;
-}
-
-/* Kommentarens användarnamn i kursiv grå text */
-.comments li .user {
+/* Användarnamnen på inlägget och kommentarerna i kursiv grå fetstil */
+.username {
     grid-area: user;
     color: var(--text-gra);
     font-weight: bold;
     font-style: italic;
 }
 
-/* Kommentarens text tar hela bredden */
-.comments li .content {
-    grid-area: content;
-}
-
-/* Kommentarens datum till höger, på en rad */
-.comments li .date {
+/* Datumen på inlägget och kommentarerna i mindre grå text på en rad */
+.date {
     grid-area: date;
     white-space: nowrap;
     color: var(--text-gra);
     font-size: 0.9em;
+}
+
+/* ---------- Kommentarer ---------- */
+
+/* Kommentarerna ligger inuti inlägget, så ingen egen ruta. Bara en linje ovanför skiljer dem från inlägget. */
+.comments {
+    grid-area: comments;
+    margin-top: 1em;
+    padding-top: 1em;
+    border-top: 1px solid var(--kant);
+}
+
+/* Rubriken "Kommentarer" */
+.comments > h3 {
+    margin-bottom: 0.5em;
+}
+
+/* Länken i texten "Logga in för att skriva en kommentar", som visas för den som inte är inloggad */
+.comments > p > a {
+    color: var(--gron);
+}
+
+/* Kommentarerna som en lista utan siffror, äldst först */
+.comments > ol {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    list-style: none;
+}
+
+/* Användare, datum och text under varandra */
+.comments li {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas:
+        "user"
+        "date"
+        "content";
+    gap: 0.3em;
+    padding: 0.6em 0.8em;
+}
+
+/* Linje mellan kommentarerna */
+.comments li + li {
+    border-top: 1px solid var(--kant);
+}
+
+/* ---------- Formulär för att skriva kommentar ---------- */
+
+/* Etiketten på egen rad, fält och knapp bredvid varandra.
+   Flex gör att mellanrummet mellan taggarna i HTML:en inte syns som ett mellanslag. */
+.comments > form {
+    display: flex;
+    flex-wrap: wrap;
+    row-gap: 0.3em;
+    padding: 1em;
+    margin-bottom: 1em;
+    border: 1px solid var(--kant);
+    border-radius: 5px;
+}
+
+/* Etiketten tar hela raden, fält och knapp hamnar under */
+.comments label {
+    flex-basis: 100%;
+}
+
+/* Fältet fyller den lediga bredden. flex: 1 utgår från bredden 0 i stället för fältets standardbredd,
+   och min-width: 0 låter det krympa, så att knappen stannar kvar bredvid även på smala skärmar.
+   Grön kant som de andra fälten, så att fältet syns tydligt mot bakgrunden (WCAG 1.4.11). */
+.comments input {
+    flex: 1;
+    min-width: 0;
+    font: inherit;
+    padding: 0.4em 0.6em;
+    border: 1px solid var(--gron);
+    border-right: none;
+    border-radius: 5px 0 0 5px;
+}
+
+/* Grön knapp som ser ut att sitta ihop med fältet */
+.comments form > button {
+    font-size: 1em;
+    color: var(--yta);
+    background-color: var(--gron);
+    border: 1px solid var(--gron);
+    border-radius: 0 5px 5px 0;
+}
+
+/* Mörkare grön när muspekaren hålls över knappen */
+.comments form > button:hover {
+    background-color: var(--gron-mork);
+}
+
+/* ---------- Surfplatta och dator  ----------- */
+
+@media (min-width: 600px) {
+    /* Rubrik och datum på samma rad, datumet till höger */
+    .main-post {
+        grid-template-columns: minmax(0, 1fr) auto;
+        grid-template-areas:
+            "title      date"
+            "user       user"
+            "content    content"
+            "comments   comments";
+        column-gap: 1em;
+        padding: 1em 1.2em;
+    }
+
+    /* Kommentarens användare och datum på samma rad, texten under */
+    .comments li {
+        grid-template-columns: minmax(0, 1fr) auto;
+        grid-template-areas:
+            "user       date"
+            "content    content";
+        align-items: baseline;
+        column-gap: 1em;
+    }
+
+    /* Formuläret behöver inte vara bredare än så här */
+    .comments > form {
+        max-width: 400px;
+    }
 }

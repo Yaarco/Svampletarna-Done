@@ -1,13 +1,8 @@
-// Startar hämtningen av information
-function init() {
-    fetchData();
-}
-
 // Hämtar informationen från JSON-filerna
 async function fetchData() {
     try {
-        const comparisonResponse = await fetch("json/speciellaEgenskaper.json");
-        const mushroomsResponse = await fetch("json/svampar.json");
+        const comparisonResponse = await fetch("./json/speciellaEgenskaper.json");
+        const mushroomsResponse = await fetch("./json/svampar.json");
 
         // Kontrollerar att båda filerna kunde hämtas
         if (!comparisonResponse.ok || !mushroomsResponse.ok) {
@@ -23,7 +18,6 @@ async function fetchData() {
             comparisonJSON.särskiljande_egenskaper,
             mushroomsJSON.svampar
         );
-
     } catch (error) {
         // Skriver felet i konsolen och visar ett meddelande på sidan
         console.error("Fel:", error);
@@ -96,16 +90,13 @@ function createMushroomImages(comparison, mushrooms) {
     imageContainer.className = "jamforelse-bilder";
 
     mushrooms.forEach(mushroom => {
-        const heading = comparison.par;
-        const name = mushroom.svenskt_namn;
-
-        if (heading.includes(name)) {
+        if (comparison.par.includes(mushroom.svenskt_namn)) {
             const figure = document.createElement("figure");
 
             const image = document.createElement("img");
 
             // Byter "./" i bildens sökväg till vår bildmapp
-            image.src = mushroom.bild.replace("./", "img/");
+            image.src = mushroom.bild.replace("./", "./img/");
             image.alt = mushroom.svenskt_namn;
 
             const caption = document.createElement("figcaption");
@@ -135,4 +126,4 @@ function createFeatureList(features) {
 }
 
 // Startar sidan när den har laddats
-window.onload = init;
+window.onload = fetchData;

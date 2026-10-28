@@ -1,7 +1,7 @@
 // Hämtar templaten för ett svampkort och listan som korten ska läggas i
 const templateEl = document.querySelector("template");
 
-const mushroomList = document.querySelector("ul");
+const mushroomList = document.querySelector(".svamp-lista > ul");
 mushroomList.removeChild(templateEl);
 
 // Skapar ett svampkort utifrån en svamp i JSON-filen, lägger till det i listan och returnerar det
@@ -18,7 +18,7 @@ function createMushroomElement({
     const contentElements = listElement.firstElementChild.children;
 
     // Byter "./" i bildens sökväg till vår bildmapp
-    contentElements[0].src = bild.replace("./", "img/");
+    contentElements[0].src = bild.replace("./", "./img/");
     contentElements[0].alt = svenskt_namn;
     contentElements[1].textContent = svenskt_namn;
     contentElements[2].textContent = latinskt_namn;
@@ -39,8 +39,6 @@ function createMushroomElement({
 
     contentElements[4].textContent = beskrivning;
     contentElements[5].textContent = fyndplats;
-    // Svenska namnet används som id när svampen sparas i localStorage
-    contentElements[6].dataset.svampId = svenskt_namn;
 
     mushroomList.appendChild(listElement);
     return listElement;

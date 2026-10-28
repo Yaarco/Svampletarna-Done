@@ -20,133 +20,107 @@ interface BlogPost {
 // Definieras globalt i js/auth.js
 declare const USERNAME: string;
 
-// Mallen för ett inlägg i listan, finns bara på blogg.html
-const template = document.querySelector("template");
-
-// Ett inläggs id är titel och datum ihop, base64-kodat så att det kan stå i adressen (?id=...)
-function getID(blogData: BlogPost) {
-    return btoa(blogData.title + "|" + blogData.date);
+// Ett inläggs id är titel och datum (unix) ihop, t.ex. "Min första kantarell|1761600000000"
+function getID(blogPost: BlogPost) {
+    return blogPost.title + "|" + blogPost.date;
 }
 
-// Avkodar ett id från getID() och letar upp inlägget med samma titel och datum
+// Letar upp inlägget som har id:t från getID()
 function idToBlogPost(id: string) {
-    const decoded = atob(id);
-    const date = decoded.split("|").pop();
-    const title = decoded.replace("|" + date, "");
-    return blogPosts.find(bp => bp.title === title && bp.date === Number(date));
+    return blogPosts.find(blogPost => getID(blogPost) === id);
 }
 
-// Skapar ett inlägg i listan på blogg.html utifrån mallen
-function createBPElement(blogData: BlogPost) {
-    const clone = template!.content.querySelector("li")!.cloneNode(true) as HTMLElement;
-    const userElement = clone.querySelector(".user") as HTMLParagraphElement;
-    const dateElement = clone.querySelector(".date") as HTMLTimeElement;
-    const commentsElement = clone.querySelector(".comments span") as HTMLSpanElement;
-    const titleElement = clone.querySelector(".title a") as HTMLAnchorElement;
-    const idNumber = getID(blogData);
+// ---------- Funktioner som bygger HTML för inlägg och kommentarer ----------
 
-    // Länken går till blogg-post.html, som visar hela inlägget
-    titleElement.href = "blogg-post.html?id=" + idNumber;
-    titleElement.textContent = blogData.title;
-    userElement.textContent = "@" + blogData.user;
+// Skapar ett element med valfri klass och text, t.ex. newElement("p", "user", "@Kalle") ger <p class="user">@Kalle</p>
+function newElement<Tag extends keyof HTMLElementTagNameMap>(tag: Tag, className?: string, text?: string) {
+    const element = document.createElement(tag);
+    if (className) element.className = className;
+    if (text !== undefined) element.textContent = text;
+    return element;
+}
 
-    // datetime är det maskinläsbara datumet, texten är det som visas
-    dateElement.setAttribute("datetime", new Date(blogData.date).toISOString());
-    dateElement.textContent = new Date(blogData.date).toLocaleString("sv-SE", {
+// Visar ett datum i ett <time>-element. datetime är det maskinläsbara datumet, texten är det som visas.
+function showDate(timeElement: HTMLTimeElement, date: number) {
+    timeElement.dateTime = new Date(date).toISOString();
+    timeElement.textContent = new Date(date).toLocaleString("sv-SE", {
         dateStyle: "medium",
         timeStyle: "short",
     });
-    // Antal kommentarer, 0 om inlägget saknar kommentarer
-    commentsElement.textContent = String(blogData.comments?.length ?? 0);
-
-    const postsList = document.querySelector(".posts ul");
-    postsList?.appendChild(clone);
 }
 
-// Exempelinlägg som sparas i localStorage första gången sidan laddas
-const examplePosts: BlogPost[] = [
-    {
-        title: "Första kantarellerna för säsongen!",
-        user: "Svampkungen",
-        content:
-            "Var ute i skogen bakom Tyresö i morse och hittade nästan två liter kantareller. Mossig granskog, nära en bäck. Det har regnat mycket senaste veckan så det är full fart nu!",
-        date: new Date("2026-08-14T09:32:00").getTime(),
-        comments: [
-            {
-                user: "Kalle",
-                content: "Grymt! Tror du det finns kvar till helgen?",
-                date: new Date("2026-08-14T12:05:00").getTime(),
-            },
-            {
-                user: "Svampkungen",
-                content: "Säkert, det kommer fler efter regnet.",
-                date: new Date("2026-08-14T13:47:00").getTime(),
-            },
-        ],
-    },
-    {
-        title: "Se upp för toppig giftspindling",
-        user: "Lisa_i_skogen",
-        content:
-            "Påminnelse till alla nybörjare: toppig giftspindling kan förväxlas med trattkantarell. Den är extremt giftig och symptomen kan dröja flera dagar. Plocka aldrig något du inte är 100% säker på.",
-        date: new Date("2026-09-02T18:10:00").getTime(),
-        comments: [
-            {
-                user: "Anders",
-                content: "Viktigt! Tack för att du delar.",
-                date: new Date("2026-09-02T19:22:00").getTime(),
-            },
-        ],
-    },
-    {
-        title: "Recept: Krämig svampstuvning på toast",
-        user: "Kalle",
-        content:
-            "Fräs svampen torrt i en het panna, tillsätt smör och schalottenlök. Häll på grädde, salta och peppra och låt puttra några minuter. Servera på rostat surdegsbröd med lite färsk persilja.",
-        date: new Date("2026-09-20T16:45:00").getTime(),
-    },
-    {
-        title: "Karljohan i parken?!",
-        user: "Anders",
-        content:
-            "Hittade tre stora karljohansvampar under en ek i stadsparken idag. Någon som vet om det är okej att plocka där?",
-        date: new Date("2026-10-08T11:15:00").getTime(),
-        comments: [
-            {
-                user: "Lisa_i_skogen",
-                content: "Allemansrätten gäller, men tänk på att svamp i stadsmiljö kan ta upp tungmetaller.",
-                date: new Date("2026-10-08T14:30:00").getTime(),
-            },
-        ],
-    },
-];
-
-if (!localStorage.getItem("posts")) {
-    localStorage.setItem("posts", JSON.stringify(examplePosts));
+// Skapar <time class="date"> med ett datum
+function newDateElement(date: number) {
+    const timeElement = newElement("time", "date");
+    showDate(timeElement, date);
+    return timeElement;
 }
 
-// Alla inlägg. Läses in efter exempelinläggen ovan, så att de syns redan vid första besöket.
+// Skapar ett inlägg i listan på blogg.html:
+// <li><article> rubrik med länk, datum, användare och antal kommentarer </article></li>
+function createPostListItem(blogPost: BlogPost) {
+    // Rubriken är en länk till blogg-post.html, som visar hela inlägget.
+    // encodeURIComponent gör att id:t kan stå i adressen även om titeln innehåller t.ex. & eller ?
+    const link = newElement("a", undefined, blogPost.title);
+    link.href = "./blogg-post.html?id=" + encodeURIComponent(getID(blogPost));
+    const title = newElement("h3");
+    title.append(link);
+
+    const date = newDateElement(blogPost.date);
+    const user = newElement("p", "user", "@" + blogPost.user);
+
+    // Pratbubbla och antal kommentarer, 0 om inlägget saknar kommentarer
+    const commentIcon = newElement("img");
+    commentIcon.src = "./img/comment.svg";
+    commentIcon.alt = "Kommentarer";
+    const commentCount = newElement("span", undefined, String(blogPost.comments?.length ?? 0));
+    const comments = newElement("p", "comments");
+    comments.append(commentIcon, commentCount);
+
+    const article = newElement("article");
+    article.append(title, date, user, comments);
+
+    const listItem = newElement("li");
+    listItem.append(article);
+    return listItem;
+}
+
+// Skapar en kommentar på blogg-post.html: <li> användare, datum och text </li>
+function createCommentListItem(comment: BlogComment) {
+    const listItem = newElement("li");
+    listItem.append(
+        newElement("p", "username", "@" + comment.user),
+        newDateElement(comment.date),
+        newElement("p", "content", comment.content)
+    );
+    return listItem;
+}
+
+// Alla inlägg från localStorage, eller en tom lista om inga har skrivits än
 const blogPosts: BlogPost[] = JSON.parse(localStorage.getItem("posts") || "[]");
 
 // Koden nedan gäller bara blogg.html, som har listan med inlägg
 const postsSection = document.querySelector(".posts");
 
 if (postsSection) {
+    const postsList = postsSection.querySelector("ol")!;
+
     if (blogPosts.length < 1) {
-        const emptyText = document.createElement("p");
-        emptyText.textContent = "Det finns inga inlägg just nu :(";
-        postsSection.append(emptyText);
+        postsSection.append(newElement("p", undefined, "Det finns inga inlägg just nu :("));
     } else {
-        blogPosts.forEach(blogPost => {
-            createBPElement(blogPost);
-        });
+        // Nyaste inlägget först. Sorterar en kopia så att ordningen i localStorage inte ändras
+        [...blogPosts]
+            .sort((a, b) => b.date - a.date)
+            .forEach(blogPost => {
+                postsList.append(createPostListItem(blogPost));
+            });
     }
 
     // Bara inloggade kan skriva inlägg, för andra döljs formuläret
     if (localStorage.getItem("username") === USERNAME) {
         const blogPostForm = document.querySelector(".post-create form") as HTMLFormElement;
 
-        // Sparar det nya inlägget och lägger till det i listan utan att ladda om sidan
+        // Sparar det nya inlägget, lägger till det i listan utan att ladda om sidan och tömmer formuläret
         blogPostForm.addEventListener("submit", event => {
             event.preventDefault();
             const blogPost: BlogPost = {
@@ -158,7 +132,10 @@ if (postsSection) {
 
             blogPosts.push(blogPost);
             localStorage.setItem("posts", JSON.stringify(blogPosts));
-            createBPElement(blogPost);
+            // Det nya inlägget är nyast och hamnar därför överst
+            postsList.prepend(createPostListItem(blogPost));
+            document.querySelector(".posts > p")?.remove();
+            blogPostForm.reset();
         });
     } else {
         (document.querySelector(".post-create") as HTMLElement).hidden = true;

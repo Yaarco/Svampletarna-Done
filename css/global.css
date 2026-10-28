@@ -1,4 +1,5 @@
-/* Gemensamma stilar för alla sidor. Varje sida har dessutom en egen CSS-fil. */
+/* Gemensamma stilar för alla sidor. Varje sida har dessutom en egen CSS-fil.
+   Mobile first: reglerna utanför media queries gäller mobil, min-width 600px, 900px och 1200px lägger till för större skärmar. */
 
 /* Hämtar typsnitten Concert One (rubriker) och Nunito (brödtext) från Google Fonts */
 @import url("https://fonts.googleapis.com/css2?family=Concert+One&display=swap");
@@ -21,11 +22,6 @@
     --skugga: rgb(0 0 0 / 0.6); /* skuggan runt sidan och den mörka toningen i heron */
 }
 
-/* Rubrikerna använder typsnittet Concert One */
-h1 {
-    font-family: "Concert One", sans-serif;
-}
-
 /* Nollställer webbläsarens standardmarginaler och gör att padding och kant räknas in i bredden */
 * {
     margin: 0;
@@ -33,41 +29,27 @@ h1 {
     box-sizing: border-box;
 }
 
-/* Sidan är högst 1200px bred och centrerad, flex i kolumn gör att footern hamnar längst ner */
-body {
-    display: flex;
-    border-radius: 10px;
-    flex-direction: column;
-    min-height: 100vh;
-    background-color: var(--bakgrund);
-    color: var(--text);
-    font-family: "Nunito", sans-serif;
-    max-width: 1200px;
-    box-shadow: 0px 0px 8px 1px var(--skugga);
-    margin: 0 auto;
-}
-
 /* Mörkgrön bakgrund som syns runt sidan på breda skärmar */
 html {
     background-color: var(--gron-mork);
 }
 
-/* Navigeringen lägger logga och länkar på en rad */
-nav {
-    width: 100%;
+/* Sidan är högst 1200px bred och centrerad, flex i kolumn gör att footern hamnar längst ner */
+body {
     display: flex;
-    flex-direction: row;
-    align-items: center;
-    column-gap: 2em;
-    padding: 0 2em;
-    background-color: var(--yta);
+    flex-direction: column;
+    min-height: 100vh;
+    max-width: 1200px;
+    margin: 0 auto;
+    background-color: var(--bakgrund);
+    color: var(--text);
+    font-family: "Nunito", sans-serif;
+    transition: margin 0.5s ease; /* Mjukar upp hoppet när marginalen ändras vid 1200px */
 }
 
-/* Huvudinnehållet */
-main {
-    flex-grow: 1;
-    /* Gör så att huvudinnehållet fyller ut allt ledigt utrymme mellan header och footer */
-    padding: 2em 1em;
+/* Rubrikerna använder typsnittet Concert One */
+h1 {
+    font-family: "Concert One", sans-serif;
 }
 
 /* Grundutseende för alla knappar. font-family: inherit eftersom knappar annars får webbläsarens standardtypsnitt. */
@@ -81,58 +63,121 @@ button {
     cursor: pointer;
 }
 
+/* ---------- Navigering ---------- */
+
+/* Alla sidor har samma meny: nav > ul > li > a, där första li är loggan */
+nav {
+    padding: 0 1em;
+    background-color: var(--yta);
+}
+
+/* Mobil: loggan och länkarna centrerade under varandra */
+nav > ul {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    list-style: none;
+}
+
+/* Lägger linje mellan varje nav element */
+nav li + li {
+    width: 40%;
+    padding-top: 0.2em;
+    text-align: center;
+    min-width: 100px;
+    border-top: 1px solid var(--kant);
+}
+
+/* Begränsar loggans höjd och centrerar den */
+nav li:first-child img {
+    display: block;
+    max-height: 60px;
+    margin-inline: auto;
+}
+
+/* Navigeringslänkarna får samma färg som texten och ingen understrykning */
+nav li > a {
+    display: block;
+    color: inherit;
+    text-decoration: none;
+    font-size: 1.1em;
+    padding-block: 0.6em;
+}
+
+/* Markerar länken till sidan man är på med grön fet text och en linje under.
+   På blogg-post.html har "Blogg" aria-current="true" eftersom inlägget inte är själva bloggsidan */
+nav li > a[aria-current] {
+    color: var(--gron);
+    font-weight: bold;
+    border-bottom: 2px solid var(--gron);
+}
+
+/* Länken till inloggningen, som visar ikonen och användarnamnet bredvid varandra när man är inloggad */
+nav li:last-child > a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.3em;
+}
+
+/* ---------- Hero ---------- */
+
+/* Heron har vit text (--yta) och en mörk toning över bakgrundsbilden så att texten syns tydligt.
+   Varje sida sätter sin egen bakgrundsbild med --hero-bild */
+.hero {
+    padding: 3em 1.5em;
+    color: var(--yta);
+    background-image: linear-gradient(var(--skugga), var(--skugga)), var(--hero-bild);
+    background-position: center bottom;
+}
+
+/* Sidans huvudrubrik i heron */
+.hero > h1 {
+    font-size: 2.5em;
+    margin-bottom: 0.2em;
+}
+
+/* Begränsar textens bredd så att raderna inte blir för långa */
+.hero > p {
+    max-width: 480px;
+    font-size: 1.1em;
+    line-height: 1.5;
+}
+
+/* ---------- Huvudinnehåll och sidfot ---------- */
+
+/* flex-grow gör att huvudinnehållet fyller ut allt ledigt utrymme mellan header och footer */
+main {
+    flex-grow: 1;
+    padding: 1em 0.8em;
+}
+
 /* Centrerad text i sidfoten */
 footer {
     text-align: center;
     padding: 1em;
 }
 
-/* Navigeringslänkarna får samma färg som texten och ingen understrykning */
-nav > a {
-    color: inherit;
-    text-decoration: none;
-    font-size: 0.9em;
-    padding-block: 1em;
-}
+/* ---------- Svampkort (index.html och mina-fynd.html) ---------- */
 
-/* Markerar länken till sidan man är på med grön fet text och en linje under */
-nav > a[aria-current="page"] {
-    color: var(--gron);
-    font-weight: bold;
-    border-bottom: 2px solid var(--gron);
-}
-
-/* Begränsar loggans höjd */
-nav > a > img {
-    max-height: 50px;
-}
-
-/* Loggan längst till vänster, övriga länkar till höger */
-nav > a:nth-child(1) {
-    margin-right: auto;
-    /* Skjuter allt efterföljande nav-innehåll åt höger genom att ta upp all ledig marginal */
-}
-
-/* Svamplistan visas som ett rutnät utan punkter */
-section > ul {
+/* Svamplistan visas som ett rutnät med en svamp per rad, index.css lägger till fler kolumner */
+.svamp-lista > ul {
     display: grid;
-    /* En svamp per rad som standard, index.css lägger till fler kolumner på större skärmar */
-    grid-template-columns: 1fr;
     gap: 10px;
     list-style: none;
 }
 
-/* Varje svampkort får ljus bakgrund, tunn kant och rundade hörn */
-section > ul > li {
+/* Varje svampkort får ljus bakgrund, tunn kant och rundade hörn.
+   overflow: hidden gör att bilden följer de rundade hörnen */
+.svamp-lista li {
     background-color: var(--yta);
     border: 1px solid var(--kant);
     border-radius: 8px;
     overflow: hidden;
-    /* Gör så att bilden följer de rundade hörnen */
 }
 
 /* Innehållet i kortet läggs under varandra och kortet fyller hela höjden i rutnätet */
-article {
+.svamp-lista article {
     display: flex;
     flex-direction: column;
     height: 100%;
@@ -141,34 +186,39 @@ article {
 }
 
 /* Ger allt förutom bilden luft till vänster och höger, bilden går kant i kant */
-article > :not(img) {
+.svamp-lista article > :not(img) {
     margin-inline: 0.8em;
 }
 
-/* Det latinska namnet visas i kursiv grå text */
-article > p:nth-of-type(1) {
+/* Bilden fyller kortets bredd och beskärs till samma proportioner i stället för att sträckas ut */
+.svamp-lista article > img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    margin-bottom: 0.3em;
+}
+
+/* Svampens svenska namn */
+.svamp-lista h3 {
+    font-size: 1.25em;
+}
+
+/* Mer radavstånd så att texten blir lättare att läsa */
+.svamp-lista p {
+    line-height: 1.4;
+}
+
+/* Det latinska namnet direkt under det svenska visas i kursiv grå text */
+.svamp-lista h3 + p {
     font-style: italic;
     color: var(--text-gra);
 }
 
-/* Fyndplatsen trycks ner till botten av kortet så att den hamnar i samma höjd på alla kort */
-article > p:nth-child(6) {
+/* Fyndplatsen är sista stycket i kortet. Den trycks ner till botten så att den hamnar i samma höjd på alla kort,
+   och får en platsikon framför sig */
+.svamp-lista article > p:last-of-type {
     margin-top: auto;
-}
-
-/* Bilden fyller kortets bredd */
-article > img {
-    width: 100%;
-    height: auto;
-    aspect-ratio: 4 / 3;
-    /* Låser bildens proportioner automatiskt */
-    object-fit: cover;
-    /* Ser till att bilden fyller ytan snyggt utan att sträckas ut fel */
-    display: block;
-}
-
-/* Platsikon framför fyndplatsen */
-.location {
     display: flex;
     align-items: center;
     gap: 0.3em;
@@ -176,7 +226,7 @@ article > img {
 
 /* Istället för att skapa en svg för varje element visas platsikonen i ett pseudoelement.
    Ikonen används som mask och fylls med textens färg (currentColor), så den följer färgpaletten. */
-.location::before {
+.svamp-lista article > p:last-of-type::before {
     content: "";
     flex-shrink: 0;
     width: 1em;
@@ -188,51 +238,17 @@ article > img {
     mask-size: contain;
 }
 
-/* Gemensamt utseende för ätbarhets- och riskrutorna, färgerna sätts längre ner */
+/* ---------- Ätbarhets- och riskrutor (svampkorten och om-svampar.html) ---------- */
+
+/* Gemensamt utseende, färgerna sätts med klasserna nedan */
 .green,
 .yellow,
 .red {
-    font-weight: 600;
     width: fit-content;
-    font-size: 0.8em;
     padding: 0.2em 0.6em;
     border-radius: 5px;
-}
-
-/* Ätbarhet: statusen syns, "?" öppnar hela texten */
-summary {
-    display: flex;
-    text-align: center;
-    align-items: center;
-    justify-content: center;
-    gap: 0.4em;
-    font-size: 1.2em;
-    list-style: none;
-    cursor: pointer;
-}
-
-/* Ritar ett "?" i en rund ring efter statusen */
-summary::after {
-    content: "?";
-    display: grid;
-    place-items: center;
-    min-width: 20px;
-    aspect-ratio: 1/1;
-    border: 1.5px solid currentColor;
-    border-radius: 50%;
-    font-size: 1em;
-}
-
-/* Byter "?" mot "×" när rutan är öppen */
-details[open] summary::after {
-    content: "×";
-}
-
-/* Den fullständiga texten som visas när rutan öppnas */
-details > p {
-    font-size: 1.1em;
-    margin: 0.3em 0 0;
-    font-weight: normal;
+    font-size: 0.8em;
+    font-weight: 600;
 }
 
 /* Grön för ätliga svampar och låg risk */
@@ -253,73 +269,84 @@ details > p {
     color: var(--rod);
 }
 
-/* Lite avstånd mellan bilden och namnet */
-.svamp-lista article > img {
-    margin-bottom: 0.3em;
+/* Statusen syns, "?" öppnar hela texten. */
+summary {
+    display: flex;
+    align-items: center;
+    gap: 0.4em;
+    min-height: 24px;
+    font-size: 1.2em;
+    list-style: none;
+    cursor: pointer;
 }
 
-/* Storlek på svampens svenska namn */
-.svamp-lista h3 {
-    font-size: 1.25em;
+/* Ritar ett "?" i en rund ring efter statusen */
+summary::after {
+    content: "?";
+    display: grid;
+    place-items: center;
+    min-width: 20px;
+    aspect-ratio: 1;
+    border: 1.5px solid currentColor;
+    border-radius: 50%;
 }
 
-/* Mer radavstånd så att texten blir lättare att läsa */
-.svamp-lista p {
-    line-height: 1.4;
+/* Byter "?" mot "×" när rutan är öppen */
+details[open] > summary::after {
+    content: "×";
 }
 
-/* Heron har vit text (--yta) och en mörk toning över bakgrundsbilden så att texten syns tydligt.
-   Varje sida sätter sin egen bakgrundsbild med --hero-bild */
-.hero {
-    padding: 3em 1.5em;
-    color: var(--yta);
-    background-image: linear-gradient(var(--skugga), var(--skugga)), var(--hero-bild);
-    background-position: center bottom;
-}
-
-/* Sidans huvudrubrik i heron */
-.hero h1 {
-    font-size: 2.5em;
-    margin-bottom: 0.2em;
-}
-
-/* Begränsar textens bredd så att raderna inte blir för långa */
-.hero p {
-    max-width: 480px;
+/* Den fullständiga texten som visas när rutan öppnas */
+details > p {
+    margin-top: 0.3em;
     font-size: 1.1em;
-    line-height: 1.5;
+    font-weight: normal;
 }
 
-/* På små skärmar: mer luft och navigeringen bryts till två rader */
-@media (max-width: 600px) {
-    main {
-        padding: 3em 2em;
-    }
+/* ---------- Större skärmar ---------- */
 
-    .hero {
-        padding: 4em 2em;
-    }
-
-    nav {
+/* Surfplatta: mer luft runt innehållet. Loggan ligger på egen rad överst och länkarna bredvid varandra under */
+@media (min-width: 600px) {
+    nav > ul {
+        flex-direction: row;
         flex-wrap: wrap;
-        justify-content: center;
+        justify-content: space-between;
+        column-gap: 1.5em;
     }
 
-    nav > a:nth-child(1) {
-        text-align: center;
+    nav li + li {
+        width: fit-content;
+        border-top: none;
+    }
+
+    nav li:first-child {
         flex-basis: 100%;
-        /* loggan tar hela övre raden, övriga länkar hamnar under */
+    }
+
+    main {
+        padding: 2em 1em;
     }
 }
 
-/* Mer luft runt sidan och större text i heron på större skärmar */
+/* Dator: menyn ligger på en rad med rundade hörn upptill, mer luft i main och heron blir större */
 @media (min-width: 900px) {
-    body {
-        margin: 2em auto;
+    nav {
+        padding: 0 2em;
+        border-radius: 10px 10px 0 0;
     }
 
-    nav {
-        border-radius: 10px 10px 0 0;
+    nav > ul {
+        column-gap: 2em;
+    }
+
+    /* Loggan längst till vänster, margin-right: auto skjuter övriga länkar till höger */
+    nav li:first-child {
+        flex-basis: auto;
+        margin-right: auto;
+    }
+
+    nav li > a {
+        padding-block: 1em;
     }
 
     main {
@@ -330,11 +357,20 @@ details > p {
         padding: 4em;
     }
 
-    .hero h1 {
+    .hero > h1 {
         font-size: 4em;
     }
 
-    .hero p {
+    .hero > p {
         font-size: 1.3em;
+    }
+}
+
+/* Bred skärm: sidan får marginal, skugga och rundade hörn så att den ser ut som ett kort på den gröna bakgrunden */
+@media (min-width: 1200px) {
+    body {
+        border-radius: 10px;
+        box-shadow: 0 0 8px 1px var(--skugga);
+        margin: 2em auto;
     }
 }
