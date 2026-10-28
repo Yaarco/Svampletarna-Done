@@ -2,7 +2,7 @@
 // Bloggen. Inläggen sparas som JSON i localStorage under nyckeln "posts".
 // Filen laddas på blogg.html och blogg-post.html. På blogg.html visas alla inlägg och inloggade kan skriva nya,
 // blog-post.ts använder idToBlogPost() för att hitta inlägget som ska visas.
-// Ett inläggs id är titel och datum ihop, t.ex. "Min första kantarell|1761600000000"
+// Ett inläggs id är titel och datum (unix) ihop, t.ex. "Min första kantarell|1761600000000"
 function getID(blogPost) {
     return blogPost.title + "|" + blogPost.date;
 }

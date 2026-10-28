@@ -20,7 +20,7 @@ interface BlogPost {
 // Definieras globalt i js/auth.js
 declare const USERNAME: string;
 
-// Ett inläggs id är titel och datum ihop, t.ex. "Min första kantarell|1761600000000"
+// Ett inläggs id är titel och datum (unix) ihop, t.ex. "Min första kantarell|1761600000000"
 function getID(blogPost: BlogPost) {
     return blogPost.title + "|" + blogPost.date;
 }
