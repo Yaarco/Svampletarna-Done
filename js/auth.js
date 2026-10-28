@@ -56,5 +56,5 @@ if (storedUser === USERNAME) {
     userIcon.alt = "";
     userIcon.width = 18;
     userIcon.height = 18;
-    loginLink.appendChild(userIcon);
+    loginLink.prepend(userIcon);
 }

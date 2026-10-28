@@ -112,11 +112,9 @@ nav li > a[aria-current] {
     border-bottom: 2px solid var(--gron);
 }
 
-/* Länken till inloggningen, som visar användarnamnet och en ikon när man är inloggad.
-   row-reverse lägger ikonen, som auth.js lägger sist, framför namnet */
+/* Länken till inloggningen, som visar ikonen och användarnamnet bredvid varandra när man är inloggad */
 nav li:last-child > a {
     display: flex;
-    flex-direction: row-reverse;
     justify-content: center;
     align-items: center;
     gap: 0.3em;
