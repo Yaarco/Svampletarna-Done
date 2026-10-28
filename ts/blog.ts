@@ -109,9 +109,11 @@ if (postsSection) {
         postsSection.append(newElement("p", undefined, "Det finns inga inlägg just nu :("));
     } else {
         // Nyaste inlägget först. Sorterar en kopia så att ordningen i localStorage inte ändras
-        [...blogPosts].sort((a, b) => b.date - a.date).forEach(blogPost => {
-            postsList.append(createPostListItem(blogPost));
-        });
+        [...blogPosts]
+            .sort((a, b) => b.date - a.date)
+            .forEach(blogPost => {
+                postsList.append(createPostListItem(blogPost));
+            });
     }
 
     // Bara inloggade kan skriva inlägg, för andra döljs formuläret

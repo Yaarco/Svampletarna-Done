@@ -75,7 +75,9 @@ if (postsSection) {
     }
     else {
         // Nyaste inlägget först. Sorterar en kopia så att ordningen i localStorage inte ändras
-        [...blogPosts].sort((a, b) => b.date - a.date).forEach(blogPost => {
+        [...blogPosts]
+            .sort((a, b) => b.date - a.date)
+            .forEach(blogPost => {
             postsList.append(createPostListItem(blogPost));
         });
     }

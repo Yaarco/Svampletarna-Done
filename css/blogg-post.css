@@ -87,7 +87,7 @@
 }
 
 /* Linje mellan kommentarerna */
-.comments li+li {
+.comments li + li {
     border-top: 1px solid var(--kant);
 }
 
@@ -140,7 +140,6 @@
 /* ---------- Surfplatta och dator  ----------- */
 
 @media (min-width: 600px) {
-
     /* Rubrik och datum på samma rad, datumet till höger */
     .main-post {
         grid-template-columns: minmax(0, 1fr) auto;
