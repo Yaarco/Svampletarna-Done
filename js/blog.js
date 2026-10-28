@@ -72,12 +72,13 @@ const blogPosts = JSON.parse(localStorage.getItem("posts") || "[]");
 // Koden nedan gäller bara blogg.html, som har listan med inlägg
 const postsSection = document.querySelector(".posts");
 if (postsSection) {
-    const postsList = postsSection.querySelector("ul");
+    const postsList = postsSection.querySelector("ol");
     if (blogPosts.length < 1) {
         postsSection.append(newElement("p", undefined, "Det finns inga inlägg just nu :("));
     }
     else {
-        blogPosts.forEach(blogPost => {
+        // Nyaste inlägget först. Sorterar en kopia så att ordningen i localStorage inte ändras
+        [...blogPosts].sort((a, b) => b.date - a.date).forEach(blogPost => {
             postsList.append(createPostListItem(blogPost));
         });
     }
@@ -95,7 +96,8 @@ if (postsSection) {
             };
             blogPosts.push(blogPost);
             localStorage.setItem("posts", JSON.stringify(blogPosts));
-            postsList.append(createPostListItem(blogPost));
+            // Det nya inlägget är nyast och hamnar därför överst
+            postsList.prepend(createPostListItem(blogPost));
             document.querySelector(".posts > p")?.remove();
             blogPostForm.reset();
         });

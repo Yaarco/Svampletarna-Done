@@ -92,7 +92,7 @@ h2 {
 /* ---------- Lista med inlägg ---------- */
 
 /* Inläggen under varandra. container-type gör att korten kan anpassas efter listans bredd */
-.posts > ul {
+.posts > ol {
     display: flex;
     flex-direction: column;
     gap: 0.8em;
