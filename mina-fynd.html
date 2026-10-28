@@ -36,8 +36,9 @@
     </header>
     <main>
         <div>
-            <p>
-                Du har hittat <span id="amount-found">0</span> svamp<span id="text-amount-found"></span>
+            <!-- aria-live gör att skärmläsare läser upp det nya antalet när ett fynd tas bort -->
+            <p aria-live="polite">
+                Du har hittat <span id="amount-found">0</span> svamp<span id="text-amount-found">ar</span>
             </p>
             <button type="button" id="clear-history-btn">Rensa alla fynd</button>
         </div>

@@ -2,17 +2,13 @@
 // Bloggen. Inläggen sparas som JSON i localStorage under nyckeln "posts".
 // Filen laddas på blogg.html och blogg-post.html. På blogg.html visas alla inlägg och inloggade kan skriva nya,
 // blog-post.ts använder idToBlogPost() för att hitta inlägget som ska visas.
-// Ett inläggs id är titel och datum ihop, base64-kodat så att det kan stå i adressen (?id=...)
-function getID(blogData) {
-    return btoa(blogData.title + "|" + blogData.date);
+// Ett inläggs id är titel och datum ihop, t.ex. "Min första kantarell|1761600000000"
+function getID(blogPost) {
+    return blogPost.title + "|" + blogPost.date;
 }
-// Avkodar ett id från getID() och letar upp inlägget med samma titel och datum
+// Letar upp inlägget som har id:t från getID()
 function idToBlogPost(id) {
-    // decoded = <titel>|datum(unix timestamp)
-    const decoded = atob(id);
-    const date = decoded.split("|").pop();
-    const title = decoded.replace("|" + date, "");
-    return blogPosts.find(bp => bp.title === title && bp.date === Number(date));
+    return blogPosts.find(blogPost => getID(blogPost) === id);
 }
 // ---------- Funktioner som bygger HTML för inlägg och kommentarer ----------
 // Skapar ett element med valfri klass och text, t.ex. newElement("p", "user", "@Kalle") ger <p class="user">@Kalle</p>
@@ -41,10 +37,11 @@ function newDateElement(date) {
 // Skapar ett inlägg i listan på blogg.html:
 // <li><article> rubrik med länk, datum, användare och antal kommentarer </article></li>
 function createPostListItem(blogPost) {
-    // Rubriken är en länk till blogg-post.html, som visar hela inlägget
+    // Rubriken är en länk till blogg-post.html, som visar hela inlägget.
+    // encodeURIComponent gör att id:t kan stå i adressen även om titeln innehåller t.ex. & eller ?
     const link = newElement("a", undefined, blogPost.title);
-    link.href = "./blogg-post.html?id=" + getID(blogPost);
-    const title = newElement("h3", "title");
+    link.href = "./blogg-post.html?id=" + encodeURIComponent(getID(blogPost));
+    const title = newElement("h3");
     title.append(link);
     const date = newDateElement(blogPost.date);
     const user = newElement("p", "user", "@" + blogPost.user);
@@ -67,7 +64,7 @@ function createCommentListItem(comment) {
     listItem.append(newElement("p", "username", "@" + comment.user), newDateElement(comment.date), newElement("p", "content", comment.content));
     return listItem;
 }
-// Alla inlägg. Läses in efter exempelinläggen ovan, så att de syns redan vid första besöket.
+// Alla inlägg från localStorage, eller en tom lista om inga har skrivits än
 const blogPosts = JSON.parse(localStorage.getItem("posts") || "[]");
 // Koden nedan gäller bara blogg.html, som har listan med inlägg
 const postsSection = document.querySelector(".posts");

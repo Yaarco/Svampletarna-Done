@@ -39,8 +39,6 @@ function createMushroomElement({
 
     contentElements[4].textContent = beskrivning;
     contentElements[5].textContent = fyndplats;
-    // Svenska namnet används som id när svampen sparas i localStorage
-    contentElements[6].dataset.svampId = svenskt_namn;
 
     mushroomList.appendChild(listElement);
     return listElement;

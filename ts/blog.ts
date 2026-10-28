@@ -20,18 +20,14 @@ interface BlogPost {
 // Definieras globalt i js/auth.js
 declare const USERNAME: string;
 
-// Ett inläggs id är titel och datum ihop, base64-kodat så att det kan stå i adressen (?id=...)
-function getID(blogData: BlogPost) {
-    return btoa(blogData.title + "|" + blogData.date);
+// Ett inläggs id är titel och datum ihop, t.ex. "Min första kantarell|1761600000000"
+function getID(blogPost: BlogPost) {
+    return blogPost.title + "|" + blogPost.date;
 }
 
-// Avkodar ett id från getID() och letar upp inlägget med samma titel och datum
+// Letar upp inlägget som har id:t från getID()
 function idToBlogPost(id: string) {
-    // decoded = <titel>|datum(unix timestamp)
-    const decoded = atob(id);
-    const date = decoded.split("|").pop();
-    const title = decoded.replace("|" + date, "");
-    return blogPosts.find(bp => bp.title === title && bp.date === Number(date));
+    return blogPosts.find(blogPost => getID(blogPost) === id);
 }
 
 // ---------- Funktioner som bygger HTML för inlägg och kommentarer ----------
@@ -63,10 +59,11 @@ function newDateElement(date: number) {
 // Skapar ett inlägg i listan på blogg.html:
 // <li><article> rubrik med länk, datum, användare och antal kommentarer </article></li>
 function createPostListItem(blogPost: BlogPost) {
-    // Rubriken är en länk till blogg-post.html, som visar hela inlägget
+    // Rubriken är en länk till blogg-post.html, som visar hela inlägget.
+    // encodeURIComponent gör att id:t kan stå i adressen även om titeln innehåller t.ex. & eller ?
     const link = newElement("a", undefined, blogPost.title);
-    link.href = "./blogg-post.html?id=" + getID(blogPost);
-    const title = newElement("h3", "title");
+    link.href = "./blogg-post.html?id=" + encodeURIComponent(getID(blogPost));
+    const title = newElement("h3");
     title.append(link);
 
     const date = newDateElement(blogPost.date);
@@ -99,7 +96,7 @@ function createCommentListItem(comment: BlogComment) {
     return listItem;
 }
 
-// Alla inlägg. Läses in efter exempelinläggen ovan, så att de syns redan vid första besöket.
+// Alla inlägg från localStorage, eller en tom lista om inga har skrivits än
 const blogPosts: BlogPost[] = JSON.parse(localStorage.getItem("posts") || "[]");
 
 // Koden nedan gäller bara blogg.html, som har listan med inlägg
@@ -135,7 +132,7 @@ if (postsSection) {
             localStorage.setItem("posts", JSON.stringify(blogPosts));
             // Det nya inlägget är nyast och hamnar därför överst
             postsList.prepend(createPostListItem(blogPost));
-            document.querySelector(".posts > p")?.remove()
+            document.querySelector(".posts > p")?.remove();
             blogPostForm.reset();
         });
     } else {

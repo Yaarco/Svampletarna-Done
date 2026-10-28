@@ -1,8 +1,3 @@
-// Startar hämtningen av information
-function init() {
-    fetchData();
-}
-
 // Hämtar informationen från JSON-filerna
 async function fetchData() {
     try {
@@ -96,10 +91,7 @@ function createMushroomImages(comparison, mushrooms) {
     imageContainer.className = "jamforelse-bilder";
 
     mushrooms.forEach(mushroom => {
-        const heading = comparison.par;
-        const name = mushroom.svenskt_namn;
-
-        if (heading.includes(name)) {
+        if (comparison.par.includes(mushroom.svenskt_namn)) {
             const figure = document.createElement("figure");
 
             const image = document.createElement("img");
@@ -135,4 +127,4 @@ function createFeatureList(features) {
 }
 
 // Startar sidan när den har laddats
-window.onload = init;
+window.onload = fetchData;

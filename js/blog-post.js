@@ -2,18 +2,14 @@
 // Visar ett enskilt inlägg på blogg-post.html. Vilket inlägg styrs av ?id= i adressen, se getID() i blog.ts.
 // idToBlogPost(), showDate(), newElement(), createCommentListItem(), blogPosts och USERNAME kommer från
 // blog.ts och auth.js, som laddas före den här filen.
-// Tar bort de fyra första tecknen, "?id="
-const searchID = location.search.slice(4);
+// Id:t från adressen (?id=...), null om det saknas. URLSearchParams avkodar det åt oss.
+const searchID = new URLSearchParams(location.search).get("id");
 // Listan med kommentarer, och texten som visas i stället när det inte finns några
-const commentsList = document.querySelector(".comments ul");
+const commentsList = document.querySelector(".comments ol");
 const noCommentsText = newElement("p", undefined, "Inga kommentarer än.");
 // Fyller i inlägget, eller skickar tillbaka användaren till blogg.html om id:t saknas eller inte finns
 function init() {
-    if (searchID.length < 5) {
-        location.href = "./blogg.html";
-        return;
-    }
-    const blogPost = idToBlogPost(searchID);
+    const blogPost = searchID ? idToBlogPost(searchID) : undefined;
     if (!blogPost) {
         location.href = "./blogg.html";
         return;
@@ -22,6 +18,7 @@ function init() {
     const postUserElement = document.querySelector(".main-post > .username");
     const postContentElement = document.querySelector(".main-post > .content");
     const postDateElement = document.querySelector(".main-post > .date");
+    document.title = blogPost.title + " – Svampbloggen";
     postTitleElement.textContent = blogPost.title;
     postUserElement.textContent = "@" + blogPost.user;
     postContentElement.textContent = blogPost.content;

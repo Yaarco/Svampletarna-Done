@@ -1,10 +1,8 @@
-//deklarerar clearHistoryBtn till "Rensa alla fynd- knappen
+// Knappen "Rensa alla fynd"
 const clearHistoryBtn = document.getElementById("clear-history-btn");
 
-//Init funktion som hämtar in json-filen, filtrerar efter sparade svampar i local storage och bygger HTML-element utifrån de sparade svamparnas information.
-//och även lyssnar efter om användaren klickar på antingen "Rensa alla fynd" eller "Ta bort"
-//"Rensa alla fynd"-knappen gör så att local storage töms på "mushrooms" och även att listan (ul) som svamparna ligger i töms. Dessutom skickar den värdet 0 till funktionen changeAmount
-//"Ta bort"-knappen uppdaterar listan för sparade svampar, raderar li som svampen ligger i och skickar längden på den uppdaterade listan till funktionen changeAmount
+// Visar de svampar som är sparade i localStorage (svenska namnet är id) och kopplar knapparna
+// "Ta bort" och "Rensa alla fynd"
 async function init() {
     const response = await fetch("./json/svampar.json");
     const mushroomsJSON = await response.json();
@@ -19,58 +17,36 @@ async function init() {
     changeAmount(foundMushrooms.length);
 
     foundMushrooms.forEach(mushroom => {
-        createMushroomElement(mushroom);
-    });
+        const listElement = createMushroomElement(mushroom);
 
-    const removeMushroomBtn = document.querySelectorAll(".remove-mushroom-btn");
-
-    removeMushroomBtn.forEach(button => {
-        button.addEventListener("click", e => {
-            const mushroomId = e.currentTarget.dataset.svampId;
-
+        // "Ta bort" tar bort svampen ur localStorage och kortet ur listan
+        listElement.querySelector(".remove-mushroom-btn").addEventListener("click", () => {
             const savedMushrooms = JSON.parse(localStorage.getItem("mushrooms")) || [];
 
             const updatedMushrooms = savedMushrooms.filter(savedId =>
-                savedId !== mushroomId
+                savedId !== mushroom.svenskt_namn
             );
 
             localStorage.setItem("mushrooms", JSON.stringify(updatedMushrooms));
-
-            e.currentTarget.closest("li").remove();
-
-            changeAmount(updatedMushrooms.length);
+            listElement.remove();
+            changeAmount(mushroomList.children.length);
         });
     });
 
-    clearHistoryBtn.addEventListener("click", e => {
+    // "Rensa alla fynd" tömmer localStorage och listan
+    clearHistoryBtn.addEventListener("click", () => {
         localStorage.removeItem("mushrooms");
-        document.querySelector(".svamp-lista > ul").innerHTML = "";
-
+        mushroomList.replaceChildren();
         changeAmount(0);
     });
 }
 
-//Denna funktion uppdaterar antalet för hittade svampar och ändrar slutet på "svamp" till "svampar" på antalet 0 och fler än 1
-//Dessutom döljer den knappen för "Rensa alla fynd" om antalet är 0 (alltså att inga svampar är sparade)
+// Visar antalet hittade svampar, "1 svamp" men "0 svampar" och "2 svampar".
+// "Rensa alla fynd" döljs när det inte finns några fynd.
 function changeAmount(amount) {
-    const showAmount = document.getElementById("amount-found");
-    const textAmount = document.getElementById("text-amount-found");
-
-    if (amount === 0) {
-        clearHistoryBtn.hidden = true;
-        textAmount.textContent = "ar";
-        showAmount.textContent = amount;
-    }
-    else {
-        textAmount.textContent = "ar";
-        showAmount.textContent = amount;
-
-        if (amount === 1) {
-            textAmount.textContent = "";
-        }
-
-        clearHistoryBtn.hidden = false;
-    }
+    document.getElementById("amount-found").textContent = amount;
+    document.getElementById("text-amount-found").textContent = amount === 1 ? "" : "ar";
+    clearHistoryBtn.hidden = amount === 0;
 }
 
 window.onload = init;

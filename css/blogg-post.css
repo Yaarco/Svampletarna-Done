@@ -63,8 +63,8 @@
     color: var(--gron);
 }
 
-/* Kommentarerna som en lista utan punkter */
-.comments>ul {
+/* Kommentarerna som en lista utan siffror, äldst först */
+.comments>ol {
     display: flex;
     flex-direction: column;
     gap: 1em;
@@ -86,10 +86,6 @@
 /* Lägg kant mellan kommentarer*/
 .comments li+li {
     border-top: 1px solid var(--kant);
-}
-
-.comments li>.content {
-    grid-area: content;
 }
 
 /* ---------- Formulär för att skriva kommentar ---------- */
