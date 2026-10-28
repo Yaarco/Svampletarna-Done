@@ -1,5 +1,5 @@
 /* Gemensamma stilar för alla sidor. Varje sida har dessutom en egen CSS-fil.
-   Mobile first: reglerna utanför media queries gäller mobil, min-width 600px och 900px lägger till för större skärmar. */
+   Mobile first: reglerna utanför media queries gäller mobil, min-width 600px, 900px och 1200px lägger till för större skärmar. */
 
 /* Hämtar typsnitten Concert One (rubriker) och Nunito (brödtext) från Google Fonts */
 @import url("https://fonts.googleapis.com/css2?family=Concert+One&display=swap");
@@ -330,7 +330,7 @@ details > p {
     }
 }
 
-/* Dator: sidan får marginal, skugga och rundade hörn, menyn ligger på en rad och heron blir större */
+/* Dator: menyn ligger på en rad med rundade hörn upptill, mer luft i main och heron blir större */
 @media (min-width: 900px) {
     nav {
         padding: 0 2em;
@@ -368,7 +368,8 @@ details > p {
     }
 }
 
-@media (min-width: 1200px){
+/* Bred skärm: sidan får marginal, skugga och rundade hörn så att den ser ut som ett kort på den gröna bakgrunden */
+@media (min-width: 1200px) {
     body {
         border-radius: 10px;
         box-shadow: 0 0 8px 1px var(--skugga);
