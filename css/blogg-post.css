@@ -111,13 +111,14 @@
 }
 
 /* Fältet fyller den lediga bredden. flex: 1 utgår från bredden 0 i stället för fältets standardbredd,
-   och min-width: 0 låter det krympa, så att knappen stannar kvar bredvid även på smala skärmar. */
+   och min-width: 0 låter det krympa, så att knappen stannar kvar bredvid även på smala skärmar.
+   Grön kant som de andra fälten, så att fältet syns tydligt mot bakgrunden (WCAG 1.4.11). */
 .comments input {
     flex: 1;
     min-width: 0;
     font: inherit;
     padding: 0.4em 0.6em;
-    border: 1px solid var(--kant);
+    border: 1px solid var(--gron);
     border-right: none;
     border-radius: 5px 0 0 5px;
 }
